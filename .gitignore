@@ -1,2 +1,52 @@
 cmake-build-debug/*
 .idea/*
+
+# Build directory
+[Bb]uild/
+
+# Project/editor files
+.vs/
+.vscode/
+
+# *nix related
+# Common convention for backup or temporary files
+*~
+
+# Visual Studio CMake settings
+CMakeSettings.json
+
+# Windows global filetypes
+Thumbs.db
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
