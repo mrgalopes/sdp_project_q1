@@ -3,4 +3,10 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(debug src/main.cpp src/vertex.cpp src/vertex.h)
+
+add_subdirectory(src)
+
+add_subdirectory(externals)
+
+# Include tests
+add_subdirectory(tests)
