@@ -9,6 +9,8 @@
 #include "vertex.h"
 std::vector<vertex> allVertexes;
 
+void testColoring(vertex thisVertex, std::vector<unsigned int> allColors);
+
 /*
  * testing
  * - open the file
@@ -22,6 +24,9 @@ int main() {
     unsigned int maxVertexes;
     std::string entireLine;
     std::ifstream graphFile("..\\src\\graphs\\rgg_n_2_15_s0.graph");
+
+    // READING FILE AND CONSTRUCTING GRAPH
+
     if (graphFile.is_open()){
         getline(graphFile, entireLine); // first line
         std::cout << entireLine << std::endl;
@@ -37,27 +42,29 @@ int main() {
                 tmpVertex.addEdge(std::stoi(t));
             }
             allVertexes.push_back(tmpVertex);
-            //std::cout << entireLine << std::endl;
             n++;
         }
     } else {
         std::cout << "Unable to open file" << std::endl;
     }
+    graphFile.close();
+
+    // TESTING COLORING ALGORITHM
+    for(auto &t: allVertexes){
+        t.colorVertex(allVertexes);
+    }
 
     /*
+    // PRINT ALL VERTEXES WITH ID, COLOR AND EDGES
     for(auto &t: allVertexes){
-        std::cout << "VERTEX: " << t.getID() << "\nEDGES: ";
+        std::cout << "VERTEX: " << t.getID();
+        std::cout << " COLOR: " << t.getColor() << " EDGES: ";
         for (auto &s: t.getEdgeList()){
             std::cout << s << " ";
         }
         std::cout << std::endl;
     }
     */
-    std::cout << allVertexes.size() << std::endl;
-    std::cout << "LAST ID: " << allVertexes.at(32767).getID() << "\n EDGES: " << std::endl;
-    for(auto &t: allVertexes.at(32767).getEdgeList()){
-        std::cout << t << " ";
-    }
     std::cout << "\n -- END OF TEST --" << std::endl;
     return 0;
 }

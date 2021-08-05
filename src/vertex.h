@@ -14,7 +14,9 @@ public:
     void addEdge(unsigned int otherID);
     unsigned int getID();
     std::vector<unsigned int> getEdgeList();
-    //void colorVertex(std::vector<vertex> allVertexes);
+    unsigned int getColor();
+    void setColor();
+    void colorVertex(std::vector<vertex> &allVertexes);
 private:
     unsigned int ID;
     unsigned int color;
