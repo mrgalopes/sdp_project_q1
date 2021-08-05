@@ -9,7 +9,7 @@
 
 class vertex {
 public:
-    vertex(unsigned int ID);
+    vertex(unsigned int ID): _ID(ID), _color(0) {};
     // default destructor is enough
     void addEdge(unsigned int otherID);
     unsigned int getID();
@@ -18,8 +18,8 @@ public:
     void setColor();
     void colorVertex(std::vector<vertex> &allVertexes);
 private:
-    unsigned int ID;
-    unsigned int color;
+    const unsigned int _ID;
+    unsigned int _color;
     std::vector<unsigned int> edgeList;
 };
 

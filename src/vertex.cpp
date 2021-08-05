@@ -3,21 +3,10 @@
 //
 
 #include <vector>
+#include <unordered_set>
 #include <algorithm>
 #include "iostream"
 #include "vertex.h"
-
-/*
- * vertex::vertex(unsigned int ID)
- * this function creates the object vertex using the given ID
- * the vertex color is initialized as 0, meaning that no color was given to it.
- * the vertex color must be assigned later, with a positive integer starting from 1
- *
- */
-vertex::vertex(unsigned int ID){
-    this->ID = ID;
-    this->color = 0;
-}
 
 /*
  * vertex::addEdge(unsigned int otherID)
@@ -31,7 +20,7 @@ void vertex::addEdge(unsigned int otherID){
 }
 
 unsigned int vertex::getID(){
-    return this->ID;
+    return this->_ID;
 }
 
 /*
@@ -50,7 +39,7 @@ std::vector<unsigned int> vertex::getEdgeList(){
  *
  */
 unsigned int vertex::getColor(){
-    return this->color;
+    return this->_color;
 }
 
 /*
@@ -60,12 +49,12 @@ unsigned int vertex::getColor(){
  *
  */
 void vertex::colorVertex(std::vector<vertex> &allVertexes){
-    if(this->ID%5000 == 0) std::cout << "checkpoint " << std::endl;
+    if(this->_ID%10000 == 0) std::cout << "checkpoint " << std::endl; // used for testing, remove in final version
     unsigned int i;
-    std::vector<unsigned int> usedColors;
+    std::unordered_set<unsigned int> usedColors;
     // add all neighbor colors to the usedColors vector
     for(auto &t: this->edgeList){
-        usedColors.push_back(allVertexes.at(t-1).color);
+        usedColors.insert(allVertexes.at(t-1)._color);
     }
     // select lowest value not in the usedColors vector
     // i = color number
@@ -77,7 +66,7 @@ void vertex::colorVertex(std::vector<vertex> &allVertexes){
             break; // the color is not being used: break and use it
         }
     }
-    this->color = i;
+    this->_color = i;
     return;
 }
 
