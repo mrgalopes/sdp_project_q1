@@ -9,7 +9,19 @@
 #include "vertex.h"
 std::vector<vertex> allVertexes;
 
-void testColoring(vertex thisVertex, std::vector<unsigned int> allColors);
+std::vector<std::string> tokenizeString(std::string &entireLine) {
+    std::istringstream iss(entireLine);
+    std::vector<std::string> splitLine{std::istream_iterator<std::string>{iss},
+                                       std::istream_iterator<std::string>{}};
+    return splitLine;
+}
+
+std::ifstream& readLine(std::ifstream &graphFile, std::string &entireLine){
+    // reads an entire line, if the line has % jumps to the next line
+    while(getline(graphFile, entireLine) && entireLine.find('%') != std::string::npos);
+    return graphFile;
+}
+
 
 /*
  * testing
@@ -20,24 +32,19 @@ void testColoring(vertex thisVertex, std::vector<unsigned int> allColors);
  */
 
 int main() {
-    unsigned int n = 1;
-    unsigned int maxVertexes;
+    unsigned int n;
     std::string entireLine;
     std::ifstream graphFile("..\\src\\graphs\\rgg_n_2_15_s0.graph");
 
     // READING FILE AND CONSTRUCTING GRAPH
 
     if (graphFile.is_open()){
-        getline(graphFile, entireLine); // first line
+        readLine(graphFile, entireLine);
         std::cout << entireLine << std::endl;
-
-        while(getline(graphFile, entireLine)){ // vertexes
+        n = 1;
+        while(readLine(graphFile, entireLine)){ // vertexes
             vertex tmpVertex(n);
-            /* code from SO */
-            std::istringstream iss(entireLine);
-            std::vector<std::string> splitLine{std::istream_iterator<std::string>{iss},
-                                            std::istream_iterator<std::string>{}};
-            /* end of code from SO */
+            std::vector<std::string> splitLine = tokenizeString(entireLine);
             for(auto &t: splitLine){
                 tmpVertex.addEdge(std::stoi(t));
             }
@@ -65,6 +72,7 @@ int main() {
         std::cout << std::endl;
     }
     */
+    std::cout << "Number of vertexes created: " << allVertexes.size() << std::endl;
     std::cout << "\n -- END OF TEST --" << std::endl;
     return 0;
 }
