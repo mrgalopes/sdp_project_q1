@@ -6,49 +6,49 @@
 #include <unordered_set>
 #include <algorithm>
 #include "iostream"
-#include "vertex.h"
+#include "Vertex.h"
 
 /*
- * vertex::addEdge(unsigned int otherID)
- * this function receives de ID of another vertex and adds it to the edgeList of the current vertex
- * the vertex's edgeList contains all the IDs of vertexes connected to it.
+ * Vertex::addEdge(unsigned int otherID)
+ * this function receives de ID of another Vertex and adds it to the edgeList of the current Vertex
+ * the Vertex's edgeList contains all the IDs of vertexes connected to it.
  *
  */
-void vertex::addEdge(unsigned int otherID){
+void Vertex::addEdge(unsigned int otherID){
     // there's no check for redundant vertexes or a connection with itself
     this->edgeList.push_back(otherID);
 }
 
-unsigned int vertex::getID(){
+unsigned int Vertex::getID(){
     return this->_ID;
 }
 
 /*
- * vertex::getEdgeList()
+ * Vertex::getEdgeList()
  * this function returns the object edge list (list with all vertexes connected)
  *
  */
-std::vector<unsigned int> vertex::getEdgeList(){
+std::vector<unsigned int> Vertex::getEdgeList(){
     return this->edgeList;
 }
 
 /*
- * vertex::getColor()
+ * Vertex::getColor()
  * this function returns the object color
  * return values: 0 if color not assigned, higher than 0 otherwise.
  *
  */
-unsigned int vertex::getColor(){
+unsigned int Vertex::getColor(){
     return this->_color;
 }
 
 /*
- * vertex::colorVertex()
+ * Vertex::colorVertex()
  * this function checks the edgeList and checks the values of colors of the connected vertexes.
  * then it assigns the lowest value higher than 0 that was not already used by connected vertexes.
  *
  */
-void vertex::colorVertex(std::vector<vertex> &allVertexes){
+void Vertex::colorVertex(std::vector<Vertex> &allVertexes){
     if(this->_ID%10000 == 0) std::cout << "checkpoint " << std::endl; // used for testing, remove in final version
     unsigned int i;
     std::unordered_set<unsigned int> usedColors;

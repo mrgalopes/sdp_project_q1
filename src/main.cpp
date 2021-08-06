@@ -3,12 +3,13 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <algorithm>
 #include <iterator>
 
-#include "vertex.h"
-std::vector<vertex> allVertexes;
+#include "Graph.h"
+#include "Vertex.h"
+#include "BasicColoringAlgorithm.h"
 
+Graph graph;
 std::vector<std::string> tokenizeString(std::string &entireLine) {
     std::istringstream iss(entireLine);
     std::vector<std::string> splitLine{std::istream_iterator<std::string>{iss},
@@ -43,12 +44,12 @@ int main() {
         std::cout << entireLine << std::endl;
         n = 1;
         while(readLine(graphFile, entireLine)){ // vertexes
-            vertex tmpVertex(n);
+            Vertex tmpVertex(n);
             std::vector<std::string> splitLine = tokenizeString(entireLine);
             for(auto &t: splitLine){
                 tmpVertex.addEdge(std::stoi(t));
             }
-            allVertexes.push_back(tmpVertex);
+            graph.addVertex(tmpVertex);
             n++;
         }
     } else {
@@ -57,22 +58,11 @@ int main() {
     graphFile.close();
 
     // TESTING COLORING ALGORITHM
-    for(auto &t: allVertexes){
-        t.colorVertex(allVertexes);
-    }
+    auto coloringAlgorithm = new BasicColoringAlgorithm();
+    graph.colorize(coloringAlgorithm);
 
-    /*
-    // PRINT ALL VERTEXES WITH ID, COLOR AND EDGES
-    for(auto &t: allVertexes){
-        std::cout << "VERTEX: " << t.getID();
-        std::cout << " COLOR: " << t.getColor() << " EDGES: ";
-        for (auto &s: t.getEdgeList()){
-            std::cout << s << " ";
-        }
-        std::cout << std::endl;
-    }
-    */
-    std::cout << "Number of vertexes created: " << allVertexes.size() << std::endl;
+    std::cout << "Number of vertexes created: " << graph.vertices.size() << std::endl;
     std::cout << "\n -- END OF TEST --" << std::endl;
+    delete coloringAlgorithm;
     return 0;
 }
