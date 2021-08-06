@@ -1,9 +1,15 @@
+include_directories(.)
 
-add_executable(debug
-        main.cpp
-        Vertex.cpp
-        Vertex.h
-        ColoringStrategy.h
-        BasicColoringAlgorithm.cpp
-        BasicColoringAlgorithm.h
-        Graph.cpp Graph.h IOMethods.cpp IOMethods.h)
+if (MSVC)
+    add_compile_options(
+        /W3
+    )
+else()
+    add_compile_options(
+        -Wall
+    )
+endif()
+
+add_subdirectory(color_prog)
+add_subdirectory(core)
+add_subdirectory(tests)
