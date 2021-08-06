@@ -1,6 +1,9 @@
 
 add_executable(debug
-    main.cpp
-    vertex.cpp
-    vertex.h
-)
+        main.cpp
+        Vertex.cpp
+        Vertex.h
+        ColoringStrategy.h
+        BasicColoringAlgorithm.cpp
+        BasicColoringAlgorithm.h
+        Graph.cpp Graph.h)
