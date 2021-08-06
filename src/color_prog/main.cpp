@@ -3,11 +3,10 @@
 #include <sstream>
 #include <iterator>
 
-#include "Graph.h"
-#include "IOMethods.h"
-#include "BasicColoringAlgorithm.h"
+#include "core/Graph.h"
+#include "core/IOMethods.h"
+#include "core/BasicColoringAlgorithm.h"
 
-Graph graph;
 /*
  * testing
  * - open the file
@@ -17,6 +16,7 @@ Graph graph;
  */
 
 int main() {
+    Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
     IOM::loadGraph(graph, graphFile);
