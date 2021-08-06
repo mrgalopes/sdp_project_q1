@@ -18,7 +18,7 @@ Graph graph;
 
 int main() {
     // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile("..\\..\\src\\graphs\\rgg_n_2_15_s0.graph");
+    std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
     IOM::loadGraph(graph, graphFile);
     graphFile.close();
 
