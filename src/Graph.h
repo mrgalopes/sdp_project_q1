@@ -11,6 +11,8 @@ struct Graph {
     void addVertex(const Vertex &vertex);
     void colorize(ColoringStrategy* coloringStrategy);
     void printVertices();
+    unsigned int numVertices;
+    unsigned int numEdges;
 };
 
 

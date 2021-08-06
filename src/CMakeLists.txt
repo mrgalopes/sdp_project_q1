@@ -6,4 +6,4 @@ add_executable(debug
         ColoringStrategy.h
         BasicColoringAlgorithm.cpp
         BasicColoringAlgorithm.h
-        Graph.cpp Graph.h)
+        Graph.cpp Graph.h IOMethods.cpp IOMethods.h)
