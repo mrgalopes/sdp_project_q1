@@ -8,5 +8,6 @@ add_subdirectory(src)
 
 add_subdirectory(externals)
 
+enable_testing()
 # Include tests
 add_subdirectory(tests)
