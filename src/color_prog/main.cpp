@@ -6,6 +6,7 @@
 #include "core/Graph.h"
 #include "core/IOMethods.h"
 #include "core/BasicColoringAlgorithm.h"
+#include "core/LubyColoringAlgorithm.h"
 
 /*
  * testing

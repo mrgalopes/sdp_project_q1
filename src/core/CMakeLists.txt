@@ -9,4 +9,6 @@ add_library(core STATIC
         Graph.h
         IOMethods.cpp
         IOMethods.h
+        LubyColoringAlgorithm.cpp
+        LubyColoringAlgorithm.h
 )

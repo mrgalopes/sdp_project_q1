@@ -28,7 +28,7 @@ unsigned int Vertex::getID(){
  * this function returns the object edge list (list with all vertexes connected)
  *
  */
-std::vector<unsigned int> Vertex::getEdgeList(){
+std::vector<unsigned int> Vertex::getEdgeList() const{
     return this->edgeList;
 }
 
@@ -40,6 +40,10 @@ std::vector<unsigned int> Vertex::getEdgeList(){
  */
 unsigned int Vertex::getColor(){
     return this->_color;
+}
+
+void Vertex::setColor(int color){
+    this->_color = color;
 }
 
 /*
