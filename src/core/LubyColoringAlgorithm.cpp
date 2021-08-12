@@ -16,7 +16,7 @@ std::mutex mtx;
 constexpr int n_workers = 8;
 
 namespace {
-    void independentSetWorker(std::vector<Vertex> &vertices, std::shared_ptr<std::vector<int>> r_p, const std::set<int>::const_iterator A_begin, const std::set<int>::const_iterator A_end, std::set<int> &i_set, std::set<int> &x_set) {
+    void independentSetWorker(std::vector<Vertex> &vertices, std::set<int>& A, std::shared_ptr<std::vector<int>> r_p, const std::set<int>::const_iterator A_begin, const std::set<int>::const_iterator A_end, std::set<int> &i_set, std::set<int> &x_set) {
         std::set<int> i_set_prime;
         std::set<int> x_set_prime;
 
@@ -24,7 +24,7 @@ namespace {
             bool peak = true;
             const auto edge_list = vertices.at(*v-1).getEdgeList();
             for (auto vx : edge_list) {
-                if (r_p->at(vx-1) > r_p->at(*v-1)) {
+                if (A.contains(vx) && r_p->at(vx-1) > r_p->at(*v-1)) {
                     peak = false;
                     break;
                 }
@@ -73,7 +73,7 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
                 auto A_end = A.cbegin();
                 std::advance(A_end,((i+1)*A.size()/n_workers));
 
-                workers.emplace_back(independentSetWorker, std::ref(vertices), r_p, A_begin, A_end, std::ref(i_set), std::ref(x_set));
+                workers.emplace_back(independentSetWorker, std::ref(vertices), std::ref(A), r_p, A_begin, A_end, std::ref(i_set), std::ref(x_set));
             }
             for(auto& t : workers){
                 t.join();
