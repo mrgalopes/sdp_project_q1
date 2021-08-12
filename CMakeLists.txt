@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(untitled)
+project(sdp_project_q1)
 
 set(CMAKE_CXX_STANDARD 20)
 
