@@ -4,6 +4,7 @@
 #include <chrono>
 #include <numeric>
 #include <random>
+#include <numeric>
 
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     unsigned int i;

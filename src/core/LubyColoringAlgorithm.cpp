@@ -10,12 +10,15 @@
 #include <set>
 #include <thread>
 
+#include <unordered_set>
+
 namespace {
-    constexpr int n_workers = 8;
     std::mutex mtx;
-    void independentSetWorker(std::vector<Vertex> &vertices, std::set<int>& A, std::shared_ptr<std::vector<int>> r_p, const std::set<int>::const_iterator A_begin, const std::set<int>::const_iterator A_end, std::set<int> &i_set, std::set<int> &x_set) {
-        std::set<int> i_set_prime;
-        std::set<int> x_set_prime;
+    void independentSetWorker(std::vector<Vertex> &vertices, std::unordered_set<int>& A,
+                              std::shared_ptr<std::vector<int>> r_p, const std::unordered_set<int>::const_iterator A_begin,
+                              const std::unordered_set<int>::const_iterator A_end, std::unordered_set<int> &i_set, std::unordered_set<int> &x_set) {
+        std::unordered_set<int> i_set_prime;
+        std::unordered_set<int> x_set_prime;
 
         for (auto v = A_begin; v != A_end; v++) {
             bool peak = true;
@@ -46,11 +49,11 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     auto r_p = std::make_shared<std::vector<int>>(size_u); //random permutation
     std::iota(r_p->begin(), r_p->end(), 1);
 
-    std::set<int> U{r_p->begin(), r_p->end()}; //U contains the IDs of uncolored vertices
-    std::set<int> A{r_p->begin(), r_p->end()}; //A contains the IDs of undecided vertices
+    std::unordered_set<int> U{r_p->begin(), r_p->end()}; //U contains the IDs of uncolored vertices
+    std::unordered_set<int> A{r_p->begin(), r_p->end()}; //A contains the IDs of undecided vertices
 
-    std::set<int> i_set{};
-    std::set<int> x_set{};
+    std::unordered_set<int> i_set{};
+    std::unordered_set<int> x_set{};
 
     while(!U.empty()){
         A = U;
@@ -61,11 +64,11 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
 
             //choose independent set
             std::vector<std::thread> workers;
-            for(int i = 0; i < n_workers; i++) {
+            for(int i = 0; i < this->_numWorkers; i++) {
                 auto A_begin = A.cbegin();
-                std::advance(A_begin,(i*A.size()/n_workers));
+                std::advance(A_begin,(i*A.size()/this->_numWorkers));
                 auto A_end = A.cbegin();
-                std::advance(A_end,((i+1)*A.size()/n_workers));
+                std::advance(A_end,((i+1)*A.size()/this->_numWorkers));
 
                 workers.emplace_back(independentSetWorker, std::ref(vertices), std::ref(A), r_p, A_begin, A_end, std::ref(i_set), std::ref(x_set));
             }
@@ -73,13 +76,12 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
                 t.join();
             }
 
-            std::set<int> aux;
-            std::set_difference(A.begin(), A.end(), i_set.begin(), i_set.end(), std::inserter(aux, aux.begin()));
-            A.swap(aux);
-            aux.clear();
-            std::set_difference(A.begin(), A.end(), x_set.begin(), x_set.end(), std::inserter(aux, aux.begin()));
-            A.swap(aux);
-            aux.clear();
+            for(auto &i: i_set){
+                A.erase(i);
+            }
+            for(auto &x: x_set){
+                A.erase(x);
+            }
         }
 
         for(auto v : i_set) {
@@ -87,10 +89,8 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
         }
 
         lowest_available_color += 1;
-
-        std::set<int> aux;
-        std::set_difference(U.begin(), U.end(), i_set.begin(), i_set.end(), std::inserter(aux, aux.begin()));
-        U.swap(aux);
-        aux.clear();
+        for(auto &i: i_set){
+            U.erase(i);
+        }
     }
 }

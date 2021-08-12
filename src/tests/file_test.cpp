@@ -2,14 +2,11 @@
 
 #include "core/Graph.h"
 #include "core/IOMethods.h"
+#include "test_helpers.h"
 
 
-TEST_CASE("The resulting should have the correct number of verticies", "[file_io]"){
-    Graph graph;
-    // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
-    IOM::loadGraph(graph, graphFile);
-    graphFile.close();
+TEST_CASE("The resulting graph should have the correct number of vertices", "[file_io]"){
+    Graph graph = loadDefaultGraph();
 
     REQUIRE(graph.vertices.size() == graph.numVertices);
 
