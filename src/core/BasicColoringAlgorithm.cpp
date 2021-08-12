@@ -2,6 +2,7 @@
 #include "BasicColoringAlgorithm.h"
 #include <set>
 #include <chrono>
+#include <numeric>
 #include <random>
 
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
