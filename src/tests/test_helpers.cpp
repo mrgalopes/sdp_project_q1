@@ -15,8 +15,9 @@ Graph loadDefaultGraph() {
 bool noAdjacentVertexWithSameColor(Graph graph) {
     for (auto &v: graph.vertices){
         unsigned int color = v.getColor();
-        for (auto &o: v.getEdgeList()){
-            if(color == graph.vertices.at(o-1).getColor()){
+        for (auto &edgeID: v.getEdgeList()){
+            if (edgeID == v.getID())
+            if(color == graph.vertices.at(edgeID - 1).getColor()){
                 return false;
             }
         }
