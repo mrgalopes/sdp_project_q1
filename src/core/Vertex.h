@@ -13,9 +13,9 @@ public:
     // default destructor is enough
     void addEdge(unsigned int otherID);
     unsigned int getID();
-    std::vector<unsigned int> getEdgeList();
+    std::vector<unsigned int> getEdgeList() const;
     unsigned int getColor();
-    void setColor();
+    void setColor(int color);
     void colorVertex(std::vector<Vertex> &allVertexes);
 private:
     const unsigned int _ID;

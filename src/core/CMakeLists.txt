@@ -9,4 +9,10 @@ add_library(core STATIC
         Graph.h
         IOMethods.cpp
         IOMethods.h
+        LubyColoringAlgorithm.cpp
+        LubyColoringAlgorithm.h
 )
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(core PRIVATE Threads::Threads)
