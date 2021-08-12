@@ -1,7 +1,6 @@
 
 #include "LubyColoringAlgorithm.h"
 #include <algorithm>
-#include <chrono>
 #include <functional>
 #include <iostream>
 #include <numeric>
@@ -43,9 +42,6 @@ namespace {
 void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     std::size_t size_u = vertices.size();
     int lowest_available_color = 1;
-    
-    // obtain a time-based seed:
-    const unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     auto r_p = std::make_shared<std::vector<int>>(size_u); //random permutation
     std::iota(r_p->begin(), r_p->end(), 1);
@@ -60,7 +56,7 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
         A = U;
         i_set.clear();
         while(!A.empty()){
-            std::shuffle(r_p->begin(), r_p->end(), std::default_random_engine(seed));
+            std::shuffle(r_p->begin(), r_p->end(), std::default_random_engine(_seed));
             x_set.clear();
 
             //choose independent set

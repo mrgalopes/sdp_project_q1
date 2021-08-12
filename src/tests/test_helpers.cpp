@@ -1,6 +1,6 @@
 
+#include <iostream>
 #include <core/Graph.h>
-#include <fstream>
 #include <core/IOMethods.h>
 #include <set>
 
@@ -43,5 +43,15 @@ unsigned int maxColor(Graph graph){
     for (auto &v: graph.vertices){
         if (v.getColor() > maxColor) maxColor = v.getColor();
     }
+    return maxColor;
+}
+
+unsigned int getMaxColor(Graph graph) {
+    unsigned int maxColor = 0;
+    for (auto &vertex : graph.vertices) {
+        if (vertex.getColor() > maxColor)
+            maxColor = vertex.getColor();
+    }
+    std::cout << "Number of colors: " << maxColor << std::endl;
     return maxColor;
 }
