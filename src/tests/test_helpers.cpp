@@ -1,6 +1,6 @@
 
+#include <iostream>
 #include <core/Graph.h>
-#include <fstream>
 #include <core/IOMethods.h>
 
 Graph loadDefaultGraph() {
@@ -23,4 +23,15 @@ bool noAdjacentVertexWithSameColor(Graph graph) {
         }
     }
     return true;
+}
+
+
+unsigned int getMaxColor(Graph graph) {
+    unsigned int maxColor = 0;
+    for (auto &vertex : graph.vertices) {
+        if (vertex.getColor() > maxColor)
+            maxColor = vertex.getColor();
+    }
+    std::cout << "Number of colors: " << maxColor << std::endl;
+    return maxColor;
 }
