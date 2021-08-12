@@ -6,4 +6,6 @@ Graph loadDefaultGraph();
 
 bool noAdjacentVertexWithSameColor(Graph graph);
 
+unsigned int getMaxColor(Graph graph);
+
 #endif //TEST_HELPERS_H
