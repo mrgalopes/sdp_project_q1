@@ -12,8 +12,7 @@ TEST_CASE("Sequential coloring test","[check_sequential]"){
     auto coloringAlgorithm = BasicColoringAlgorithm();
     graph.colorize(&coloringAlgorithm);
 
-    REQUIRE(getMaxColor(graph) == 13);
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);
-    std::cout << "Number of colors used: " << maxColor(graph) << std::endl;
+    std::cout << "Sequential - Number of colors used: " << maxColor(graph) << std::endl;
 }

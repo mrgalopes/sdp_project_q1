@@ -15,5 +15,5 @@ TEST_CASE("Jones coloring test","[check_jones]"){
 
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);
-    std::cout << "Number of colors used: " << maxColor(graph) << std::endl;
+    std::cout << "Jones - Number of colors used: " << maxColor(graph) << std::endl;
 }
