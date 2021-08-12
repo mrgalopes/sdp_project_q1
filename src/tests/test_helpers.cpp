@@ -9,6 +9,7 @@ Graph loadDefaultGraph() {
     std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
     IOM::loadGraph(graph, graphFile);
     graphFile.close();
+    return graph;
 }
 
 bool noAdjacentVertexWithSameColor(Graph graph) {

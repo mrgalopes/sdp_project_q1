@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-unsigned int factorial(unsigned int number) {
+int factorial(int number) {
     int result = 1;
     for (int i = 2; i <= number; i++) {
         result *= i;
