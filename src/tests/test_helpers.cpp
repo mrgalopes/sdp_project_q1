@@ -2,6 +2,7 @@
 #include <core/Graph.h>
 #include <fstream>
 #include <core/IOMethods.h>
+#include <set>
 
 Graph loadDefaultGraph() {
     Graph graph;
@@ -23,4 +24,24 @@ bool noAdjacentVertexWithSameColor(Graph graph) {
         }
     }
     return true;
+}
+
+int noUncoloredVertex(Graph graph){
+    int numUncolored = 0;
+    std::set<int> uncoloredVertices;
+    for (auto &v: graph.vertices){
+        if (v.getColor() == 0){
+            numUncolored++;
+            uncoloredVertices.insert(v.getID());
+        }
+    }
+    return numUncolored;
+}
+
+unsigned int maxColor(Graph graph){
+    unsigned int maxColor = 0;
+    for (auto &v: graph.vertices){
+        if (v.getColor() > maxColor) maxColor = v.getColor();
+    }
+    return maxColor;
 }

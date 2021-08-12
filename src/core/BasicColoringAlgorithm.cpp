@@ -1,12 +1,12 @@
 
 #include "BasicColoringAlgorithm.h"
-#include <unordered_set>
+#include <set>
 #include <chrono>
 #include <random>
 
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     unsigned int i;
-    std::unordered_set<unsigned int> usedColors;
+    std::set<unsigned int> usedColors;
     const unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // random permutation
@@ -22,9 +22,7 @@ void BasicColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
 
         // select the lowest used color
         for(i = 1; i <= vertices.at(id-1).getEdgeList().size();i++){
-            if (std::find(usedColors.begin(), usedColors.end(),i) == usedColors.end()) {
-                break; // the color is not being used, break
-            }
+            if (!usedColors.contains(i)) break; // the color is not being used, break
         }
 
         // give color to the vertex
