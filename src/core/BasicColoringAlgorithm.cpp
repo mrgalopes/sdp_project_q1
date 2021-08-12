@@ -3,6 +3,7 @@
 #include <set>
 #include <chrono>
 #include <random>
+#include <numeric>
 
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     unsigned int i;
