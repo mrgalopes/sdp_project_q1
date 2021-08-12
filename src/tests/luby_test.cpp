@@ -12,6 +12,7 @@ TEST_CASE("Luby coloring test","[check_luby]"){
     auto coloringAlgorithm = LubyColoringAlgorithm(1);
     graph.colorize(&coloringAlgorithm);
 
-    REQUIRE(getMaxColor(graph) == 16);
+    std::cout << "Luby - Number of colors used: " << maxColor(graph) << std::endl;
     REQUIRE(noAdjacentVertexWithSameColor(graph));
+    REQUIRE(noUncoloredVertex(graph) == 0);
 }

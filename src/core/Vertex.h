@@ -16,7 +16,6 @@ public:
     std::vector<unsigned int> getEdgeList() const;
     unsigned int getColor();
     void setColor(int color);
-    void colorVertex(std::vector<Vertex> &allVertexes);
 private:
     const unsigned int _ID;
     unsigned int _color;

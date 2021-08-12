@@ -11,7 +11,7 @@ add_library(core STATIC
         IOMethods.h
         LubyColoringAlgorithm.cpp
         LubyColoringAlgorithm.h
-)
+        JonesPlassmannAlgorithm.cpp JonesPlassmannAlgorithm.h)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

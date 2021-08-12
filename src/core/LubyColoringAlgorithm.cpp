@@ -10,11 +10,9 @@
 #include <set>
 #include <thread>
 
-std::mutex mtx;
-
-constexpr int n_workers = 8;
-
 namespace {
+    constexpr int n_workers = 8;
+    std::mutex mtx;
     void independentSetWorker(std::vector<Vertex> &vertices, std::set<int>& A, std::shared_ptr<std::vector<int>> r_p, const std::set<int>::const_iterator A_begin, const std::set<int>::const_iterator A_end, std::set<int> &i_set, std::set<int> &x_set) {
         std::set<int> i_set_prime;
         std::set<int> x_set_prime;
@@ -85,7 +83,7 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
         }
 
         for(auto v : i_set) {
-            vertices[v].setColor(lowest_available_color);
+            vertices.at(v-1).setColor(lowest_available_color);
         }
 
         lowest_available_color += 1;
