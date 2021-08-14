@@ -4,7 +4,7 @@
 #include "ColoringStrategy.h"
 #include <cstddef>
 #include <chrono>
-#include <random>
+
 #define DEFAULT_WORKERS 4
 
 class JonesPlassmannAlgorithm: public ColoringStrategy {

@@ -5,13 +5,12 @@
 #ifndef IOMETHODS_H
 #define IOMETHODS_H
 
-#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
-#include <iterator>
 #include <sstream>
-#include "Graph.h"
+
+class Graph;
 
 namespace IOM {
     std::ifstream& readLine(std::ifstream &graphFile, std::string &entireLine);

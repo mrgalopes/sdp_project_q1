@@ -2,22 +2,27 @@
 // Created by Benevides on 06/08/2021.
 //
 
+#include "Graph.h"
 #include "IOMethods.h"
+#include <iostream>
+#include <iterator>
 
-std::vector<std::string> IOM::tokenizeString(std::string &entireLine) {
+namespace IOM {
+
+std::vector<std::string> tokenizeString(std::string &entireLine) {
     std::istringstream iss(entireLine);
     std::vector<std::string> splitLine{std::istream_iterator<std::string>{iss},
                                        std::istream_iterator<std::string>{}};
     return splitLine;
 }
 
-std::ifstream& IOM::readLine(std::ifstream &graphFile, std::string &entireLine){
+std::ifstream& readLine(std::ifstream &graphFile, std::string &entireLine){
     // reads an entire line, if the line has % jumps to the next line
     while(getline(graphFile, entireLine) && entireLine.find('%') != std::string::npos);
     return graphFile;
 }
 
-unsigned int IOM::loadGraph(Graph &graph, std::ifstream &graphFile){
+unsigned int loadGraph(Graph &graph, std::ifstream &graphFile){
     unsigned int n = 0;
     std::vector<std::string> splitLine;
     std::string entireLine;
@@ -41,3 +46,4 @@ unsigned int IOM::loadGraph(Graph &graph, std::ifstream &graphFile){
     }
     return n;
 }
+} // namespace IOM
