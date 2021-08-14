@@ -12,8 +12,8 @@ void Graph::printVertices() const {
     }
 }
 
-void Graph::addVertex(const Vertex& vertex) {
-    vertices.push_back(vertex);
+void Graph::addVertex(Vertex vertex) {
+    vertices.push_back(std::move(vertex));
 }
 
 void Graph::colorize(ColoringStrategy* coloringStrategy) {

@@ -39,7 +39,7 @@ unsigned int loadGraph(Graph& graph, std::ifstream& graphFile) {
             for (auto& t : splitLine) {
                 tmpVertex.addEdge(std::stoi(t));
             }
-            graph.addVertex(tmpVertex);
+            graph.addVertex(std::move(tmpVertex));
             n++;
         }
     } else {
