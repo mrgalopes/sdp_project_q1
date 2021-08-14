@@ -12,9 +12,9 @@ public:
     Vertex(unsigned int ID): _ID(ID), _color(0) {};
     // default destructor is enough
     void addEdge(unsigned int otherID);
-    unsigned int getID();
+    unsigned int getID() const;
     std::vector<unsigned int> getEdgeList() const;
-    unsigned int getColor();
+    unsigned int getColor() const;
     void setColor(int color);
 private:
     const unsigned int _ID;

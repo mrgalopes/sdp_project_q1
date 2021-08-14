@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Graph.h"
 
-void Graph::printVertices() {
+void Graph::printVertices() const {
     for(auto &vertex : vertices){
         std::cout << "VERTEX: " << vertex.getID();
         std::cout << " COLOR: " << vertex.getColor() << " EDGES: ";

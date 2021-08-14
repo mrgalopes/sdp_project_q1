@@ -10,7 +10,7 @@ struct Graph {
     std::vector<Vertex> vertices;
     void addVertex(const Vertex &vertex);
     void colorize(ColoringStrategy* coloringStrategy);
-    void printVertices();
+    void printVertices() const;
     unsigned int numVertices;
     unsigned int numEdges;
 };
