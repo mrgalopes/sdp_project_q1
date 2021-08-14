@@ -18,9 +18,10 @@ bool noAdjacentVertexWithSameColor(Graph graph) {
         unsigned int color = v.getColor();
         for (auto& edgeID : v.getEdgeList()) {
             if (edgeID == v.getID())
-                if (color == graph.vertices.at(edgeID - 1).getColor()) {
-                    return false;
-                }
+                continue;
+            if (color == graph.vertices.at(edgeID - 1).getColor()) {
+                return false;
+            }
         }
     }
     return true;
