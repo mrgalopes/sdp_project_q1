@@ -2,11 +2,11 @@
 // Created by Benevides on 04/08/2021.
 //
 
-#include <vector>
-#include <unordered_set>
 #include <algorithm>
-#include "iostream"
+#include <unordered_set>
+#include <vector>
 #include "Vertex.h"
+#include "iostream"
 
 /*
  * Vertex::addEdge(unsigned int otherID)
@@ -14,7 +14,7 @@
  * the Vertex's edgeList contains all the IDs of vertexes connected to it.
  *
  */
-void Vertex::addEdge(unsigned int otherID){
+void Vertex::addEdge(unsigned int otherID) {
     // there's no check for redundant vertexes or a connection with itself
     this->edgeList.push_back(otherID);
 }
@@ -28,7 +28,7 @@ unsigned int Vertex::getID() const {
  * this function returns the object edge list (list with all vertexes connected)
  *
  */
-std::vector<unsigned int> Vertex::getEdgeList() const{
+std::vector<unsigned int> Vertex::getEdgeList() const {
     return this->edgeList;
 }
 
@@ -42,8 +42,6 @@ unsigned int Vertex::getColor() const {
     return this->_color;
 }
 
-void Vertex::setColor(int color){
+void Vertex::setColor(int color) {
     this->_color = color;
 }
-
-

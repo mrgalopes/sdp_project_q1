@@ -12,4 +12,4 @@ unsigned int maxColor(Graph graph);
 
 unsigned int getMaxColor(Graph graph);
 
-#endif //TEST_HELPERS_H
+#endif // TEST_HELPERS_H

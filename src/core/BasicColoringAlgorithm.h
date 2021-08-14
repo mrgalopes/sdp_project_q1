@@ -9,5 +9,4 @@ public:
     void colorGraph(std::vector<Vertex>& vertices) override;
 };
 
-
-#endif //BASIC_COLORING_ALGORITHM_H
+#endif // BASIC_COLORING_ALGORITHM_H

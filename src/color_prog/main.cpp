@@ -1,11 +1,11 @@
 #include <iostream>
-#include <string>
-#include <sstream>
 #include <iterator>
+#include <sstream>
+#include <string>
 
+#include "core/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
 #include "core/IOMethods.h"
-#include "core/BasicColoringAlgorithm.h"
 #include "core/LubyColoringAlgorithm.h"
 
 /*
