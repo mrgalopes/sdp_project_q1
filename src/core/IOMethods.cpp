@@ -1,7 +1,3 @@
-//
-// Created by Benevides on 06/08/2021.
-//
-
 #include "IOMethods.h"
 
 std::vector<std::string> IOM::tokenizeString(std::string &entireLine) {

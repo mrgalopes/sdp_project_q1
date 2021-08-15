@@ -8,7 +8,7 @@
 
 struct Graph {
     std::vector<Vertex> vertices;
-    void addVertex(const Vertex &vertex);
+    void addVertex(Vertex &vertex);
     void colorize(ColoringStrategy* coloringStrategy);
     void printVertices();
     unsigned int numVertices;
