@@ -1,14 +1,27 @@
 
 #include <iostream>
 #include <set>
-#include <core/Graph.h>
-#include <core/IOMethods.h>
+#include "core/Graph.h"
+#include "core/IOMethods.h"
 
-Graph loadDefaultGraph() {
+namespace {
+std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
+}
+
+Graph loadDefaultSequential() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
-    IOM::loadGraph(graph, graphFile);
+    std::ifstream graphFile(fileName);
+    IOM::loadGraphSequential(graph, graphFile);
+    graphFile.close();
+    return graph;
+}
+
+Graph loadDefaultThreaded() {
+    Graph graph;
+    // READING FILE AND CONSTRUCTING GRAPH
+    std::ifstream graphFile(fileName);
+    IOM::loadGraphThreaded(graph, graphFile);
     graphFile.close();
     return graph;
 }

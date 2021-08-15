@@ -6,6 +6,7 @@ add_executable(tests
     test_helpers.h
     luby_test.cpp
     jones_test.cpp
+    load_graph_test.cpp
 )
 
 target_link_libraries(tests PRIVATE core)

@@ -1,7 +1,3 @@
-//
-// Created by Benevides on 04/08/2021.
-//
-
 #ifndef UNTITLED_VERTEX_H
 #define UNTITLED_VERTEX_H
 
@@ -9,6 +5,7 @@
 
 class Vertex {
 public:
+    Vertex() : _ID(0), _color(0){};
     Vertex(unsigned int ID) : _ID(ID), _color(0){};
     // default destructor is enough
     void addEdge(unsigned int otherID);
@@ -18,7 +15,7 @@ public:
     void setColor(int color);
 
 private:
-    const unsigned int _ID;
+    unsigned int _ID;
     unsigned int _color;
     std::vector<unsigned int> edgeList;
 };
