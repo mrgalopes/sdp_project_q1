@@ -6,7 +6,7 @@
 #include "tests/test_helpers.h"
 
 TEST_CASE("Sequential coloring test","[check_sequential]"){
-    Graph graph = loadDefaultGraph();
+    Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = BasicColoringAlgorithm();

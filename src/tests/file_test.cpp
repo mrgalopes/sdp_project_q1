@@ -6,7 +6,7 @@
 
 
 TEST_CASE("The resulting graph should have the correct number of vertices", "[file_io]"){
-    Graph graph = loadDefaultGraph();
+    Graph graph = loadDefaultThreaded();
 
     REQUIRE(graph.vertices.size() == graph.numVertices);
 

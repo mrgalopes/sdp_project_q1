@@ -1,7 +1,3 @@
-//
-// Created by Benevides on 06/08/2021.
-//
-
 #ifndef IOMETHODS_H
 #define IOMETHODS_H
 
@@ -16,7 +12,8 @@
 namespace IOM {
     std::ifstream& readLine(std::ifstream &graphFile, std::string &entireLine);
     std::vector<std::string> tokenizeString(std::string &entireLine);
-    unsigned int loadGraph(Graph &graph, std::ifstream &graphFile);
+    unsigned int loadGraphSequential(Graph &graph, std::ifstream &graphFile);
+    unsigned int loadGraphThreaded(Graph &graph, std::ifstream &graphFile);
 }
 
 

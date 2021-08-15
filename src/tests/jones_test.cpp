@@ -9,7 +9,7 @@
 #include <thread>
 
 TEST_CASE("Jones coloring test","[check_jones]"){
-    Graph graph = loadDefaultGraph();
+    Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = JonesPlassmannAlgorithm(8, 1);

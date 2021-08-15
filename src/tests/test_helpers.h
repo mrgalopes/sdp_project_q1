@@ -4,7 +4,8 @@
 
 #include <iostream>
 
-Graph loadDefaultGraph();
+Graph loadDefaultSequential();
+Graph loadDefaultThreaded();
 
 bool noAdjacentVertexWithSameColor(Graph graph);
 int noUncoloredVertex(Graph graph);

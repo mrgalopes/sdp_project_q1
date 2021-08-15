@@ -1,7 +1,3 @@
-//
-// Created by Benevides on 04/08/2021.
-//
-
 #include <vector>
 #include <unordered_set>
 #include <algorithm>
@@ -19,7 +15,7 @@ void Vertex::addEdge(unsigned int otherID){
     this->edgeList.push_back(otherID);
 }
 
-unsigned int Vertex::getID(){
+unsigned int Vertex::getID() const{
     return this->_ID;
 }
 
@@ -38,7 +34,7 @@ std::vector<unsigned int> Vertex::getEdgeList() const{
  * return values: 0 if color not assigned, higher than 0 otherwise.
  *
  */
-unsigned int Vertex::getColor(){
+unsigned int Vertex::getColor() const{
     return this->_color;
 }
 
