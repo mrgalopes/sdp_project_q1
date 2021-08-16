@@ -12,7 +12,7 @@ void Graph::printVertices() const {
     }
 }
 
-void Graph::addVertex(Vertex vertex) {
+void Graph::addVertex(Vertex&& vertex) {
     vertices.push_back(std::move(vertex));
 }
 
