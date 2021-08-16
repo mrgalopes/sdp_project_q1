@@ -1,8 +1,8 @@
 
 #include <iostream>
 #include <set>
-#include "core/Graph.h"
 #include "core/IOMethods.h"
+#include "test_helpers.h"
 
 namespace {
 std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
@@ -26,7 +26,7 @@ Graph loadDefaultThreaded() {
     return graph;
 }
 
-bool noAdjacentVertexWithSameColor(Graph graph) {
+bool noAdjacentVertexWithSameColor(Graph& graph) {
     for (auto& v : graph.vertices) {
         unsigned int color = v.getColor();
         for (auto& edgeID : v.getEdgeList()) {
@@ -40,7 +40,7 @@ bool noAdjacentVertexWithSameColor(Graph graph) {
     return true;
 }
 
-int noUncoloredVertex(Graph graph) {
+int noUncoloredVertex(Graph& graph) {
     int numUncolored = 0;
     std::set<int> uncoloredVertices;
     for (auto& v : graph.vertices) {
@@ -52,21 +52,11 @@ int noUncoloredVertex(Graph graph) {
     return numUncolored;
 }
 
-unsigned int maxColor(Graph graph) {
+unsigned int maxColor(Graph& graph) {
     unsigned int maxColor = 0;
     for (auto& v : graph.vertices) {
         if (v.getColor() > maxColor)
             maxColor = v.getColor();
     }
-    return maxColor;
-}
-
-unsigned int getMaxColor(Graph graph) {
-    unsigned int maxColor = 0;
-    for (auto& vertex : graph.vertices) {
-        if (vertex.getColor() > maxColor)
-            maxColor = vertex.getColor();
-    }
-    std::cout << "Number of colors: " << maxColor << std::endl;
     return maxColor;
 }

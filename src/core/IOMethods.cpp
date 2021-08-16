@@ -1,7 +1,3 @@
-//
-// Created by Benevides on 06/08/2021.
-//
-
 #include <iostream>
 #include <iterator>
 #include "Graph.h"

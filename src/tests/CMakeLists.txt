@@ -1,5 +1,4 @@
 add_executable(tests
-    simple_test.cpp
     file_test.cpp
     sequential_test.cpp
     test_helpers.cpp
