@@ -8,7 +8,7 @@
 
 #include <thread>
 
-TEST_CASE("Jones coloring test","[check_jones]"){
+TEST_CASE("Jones coloring test", "[check_jones]") {
     Graph graph = loadDefaultGraph();
 
     // TESTING COLORING ALGORITHM

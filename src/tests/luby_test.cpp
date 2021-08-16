@@ -5,7 +5,7 @@
 
 #include "tests/test_helpers.h"
 
-TEST_CASE("Luby coloring test","[check_luby]"){
+TEST_CASE("Luby coloring test", "[check_luby]") {
     Graph graph = loadDefaultGraph();
 
     // TESTING COLORING ALGORITHM
