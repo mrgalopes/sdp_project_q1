@@ -1,4 +1,5 @@
 #include <iostream>
+#include "ColoringStrategy.h"
 #include "Graph.h"
 
 void Graph::printVertices() const {

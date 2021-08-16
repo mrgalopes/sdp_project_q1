@@ -1,7 +1,5 @@
 #include <iostream>
-#include <iterator>
 #include <sstream>
-#include <string>
 
 #include "core/BasicColoringAlgorithm.h"
 #include "core/Graph.h"

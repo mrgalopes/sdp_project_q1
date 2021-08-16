@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include <set>
 #include "core/IOMethods.h"
 #include "test_helpers.h"

@@ -3,10 +3,12 @@
 #define GRAPH_H
 
 #include <vector>
-#include "ColoringStrategy.h"
 #include "Vertex.h"
 
-struct Graph {
+class ColoringStrategy;
+
+class Graph {
+public:
     std::vector<Vertex> vertices;
     unsigned int numVertices;
     unsigned int numEdges;

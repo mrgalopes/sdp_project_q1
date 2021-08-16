@@ -1,10 +1,9 @@
 #include <iostream>
 #include <iterator>
-#include "Graph.h"
-#include "IOMethods.h"
-
 #include <mutex>
 #include <thread>
+#include "Graph.h"
+#include "IOMethods.h"
 
 namespace {
 unsigned int numThreads = 4;
