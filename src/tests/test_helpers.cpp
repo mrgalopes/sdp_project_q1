@@ -58,13 +58,3 @@ unsigned int maxColor(Graph graph){
     }
     return maxColor;
 }
-
-unsigned int getMaxColor(Graph graph) {
-    unsigned int maxColor = 0;
-    for (auto &vertex : graph.vertices) {
-        if (vertex.getColor() > maxColor)
-            maxColor = vertex.getColor();
-    }
-    std::cout << "Number of colors: " << maxColor << std::endl;
-    return maxColor;
-}

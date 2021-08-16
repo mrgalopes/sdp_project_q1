@@ -1,7 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "core/Graph.h"
-#include "core/IOMethods.h"
 #include "test_helpers.h"
 
 
