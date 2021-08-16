@@ -30,7 +30,7 @@ void readThread(Graph& graph, std::ifstream& graphFile, unsigned int& n) {
         for (auto& t : splitLine) {
             tmpVertex.addEdge(std::stoi(t));
         }
-        graph.addVertex2(tmpVertex);
+        graph.addVertex(std::move(tmpVertex), vertexID);
     }
     return;
 }

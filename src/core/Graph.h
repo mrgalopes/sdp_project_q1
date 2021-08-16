@@ -12,8 +12,8 @@ struct Graph {
     unsigned int numEdges;
 
     // methods
-    void addVertex(Vertex&& vertex); // add at the end
-    void addVertex2(Vertex& vertex); // the position is the ID
+    void addVertex(Vertex&& vertex);
+    void addVertex(Vertex&& vertex, unsigned int id);
     void colorize(ColoringStrategy* coloringStrategy);
     void printVertices() const;
     bool operator==(const Graph&) const;

@@ -16,8 +16,8 @@ void Graph::addVertex(Vertex&& vertex) {
     vertices.push_back(std::move(vertex));
 }
 
-void Graph::addVertex2(Vertex& vertex) {
-    vertices.at(vertex.getID() - 1) = std::move(vertex);
+void Graph::addVertex(Vertex&& vertex, unsigned int id) {
+    vertices.at(id - 1) = std::move(vertex);
 }
 
 void Graph::colorize(ColoringStrategy* coloringStrategy) {

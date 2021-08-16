@@ -30,6 +30,6 @@ int main() {
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "\n -- END OF TEST --" << std::endl;
-    //delete coloringAlgorithm;
+    // delete coloringAlgorithm;
     return 0;
 }
