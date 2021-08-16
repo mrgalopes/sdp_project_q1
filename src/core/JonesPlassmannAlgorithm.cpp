@@ -11,7 +11,7 @@
 
 namespace {
 std::mutex mtx;
-void JPWorker(std::vector<Vertex>& vertices, std::unordered_set<int>& U,
+void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
               std::shared_ptr<std::vector<int>> r_p,
               const std::unordered_set<int>::const_iterator U_begin,
               const std::unordered_set<int>::const_iterator U_end, std::unordered_set<int>& i_set) {

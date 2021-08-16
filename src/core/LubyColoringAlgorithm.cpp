@@ -13,7 +13,7 @@
 
 namespace {
 std::mutex mtx;
-void independentSetWorker(std::vector<Vertex>& vertices, std::unordered_set<int>& A,
+void independentSetWorker(const std::vector<Vertex>& vertices, const std::unordered_set<int>& A,
                           std::shared_ptr<std::vector<int>> r_p,
                           const std::unordered_set<int>::const_iterator A_begin,
                           const std::unordered_set<int>::const_iterator A_end,
