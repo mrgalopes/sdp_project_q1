@@ -12,32 +12,31 @@
 namespace {
 std::mutex mtx;
 void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
-              std::shared_ptr<std::vector<int>> r_p,
-              const std::unordered_set<int>::const_iterator U_begin,
-              const std::unordered_set<int>::const_iterator U_end, std::unordered_set<int>& i_set) {
+              std::shared_ptr<std::vector<int>> r_p, const std::unordered_set<int> work_set,
+              std::unordered_set<int>& i_set) {
 
     unsigned int i = 0;
     std::unordered_set<int> i_set_prime; // independent set for the subgraph received by the worker
-    for (auto v = U_begin; v != U_end; v++) {
+    for (auto v : work_set) {
         bool peak = true;
-        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(v - 1).getEdgeList();
         for (auto vx : edge_list) {
-            if (U.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
+            if (U.contains(vx) && r_p->at(vx - 1) > r_p->at(v - 1)) {
                 peak = false;
                 break;
             }
         }
         if (peak) { // insert in independent set and color it
-            i_set_prime.insert(*v);
-            std::set<unsigned int> usedColors;
-            for (auto& o : vertices.at(*v - 1).getEdgeList()) {
+            i_set_prime.insert(v);
+            std::unordered_set<unsigned int> usedColors;
+            for (auto& o : edge_list) {
                 usedColors.insert(vertices.at(o - 1).getColor());
             }
-            for (i = 1; i <= vertices.at(*v - 1).getEdgeList().size(); i++) {
+            for (i = 1; i <= edge_list.size(); i++) {
                 if (!usedColors.contains(i))
                     break;
             }
-            vertices.at(*v - 1).setColor(i);
+            vertices.at(v - 1).setColor(i);
         }
     }
     mtx.lock();
@@ -69,8 +68,9 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
             auto U_end = U.cbegin();
             std::advance(U_end, ((i + 1) * U.size()) / this->_numWorkers);
 
-            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(U), r_p, U_begin, U_end,
-                                 std::ref(i_set));
+            std::unordered_set<int> work_set{U_begin, U_end};
+            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(U), r_p,
+                                 std::move(work_set), std::ref(i_set));
         }
         for (auto& t : workers) {
             t.join();

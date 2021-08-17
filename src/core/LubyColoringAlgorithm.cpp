@@ -15,23 +15,22 @@ namespace {
 std::mutex mtx;
 void independentSetWorker(const std::vector<Vertex>& vertices, const std::unordered_set<int>& A,
                           std::shared_ptr<std::vector<int>> r_p,
-                          const std::unordered_set<int>::const_iterator A_begin,
-                          const std::unordered_set<int>::const_iterator A_end,
-                          std::unordered_set<int>& i_set, std::unordered_set<int>& x_set) {
+                          const std::unordered_set<int> work_set, std::unordered_set<int>& i_set,
+                          std::unordered_set<int>& x_set) {
     std::unordered_set<int> i_set_prime;
     std::unordered_set<int> x_set_prime;
 
-    for (auto v = A_begin; v != A_end; v++) {
+    for (auto v : work_set) {
         bool peak = true;
-        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(v - 1).getEdgeList();
         for (auto vx : edge_list) {
-            if (A.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
+            if (A.contains(vx) && r_p->at(vx - 1) > r_p->at(v - 1)) {
                 peak = false;
                 break;
             }
         }
         if (peak) {
-            i_set_prime.insert(*v);
+            i_set_prime.insert(v);
             x_set_prime.insert(edge_list.cbegin(), edge_list.cend());
         }
     }
@@ -71,8 +70,9 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
                 auto A_end = A.cbegin();
                 std::advance(A_end, ((i + 1) * A.size() / this->_numWorkers));
 
+                std::unordered_set<int> work_set{A_begin, A_end};
                 workers.emplace_back(independentSetWorker, std::ref(vertices), std::ref(A), r_p,
-                                     A_begin, A_end, std::ref(i_set), std::ref(x_set));
+                                     std::move(work_set), std::ref(i_set), std::ref(x_set));
             }
             for (auto& t : workers) {
                 t.join();
