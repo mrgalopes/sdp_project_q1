@@ -1,6 +1,7 @@
 #ifndef UNTITLED_VERTEX_H
 #define UNTITLED_VERTEX_H
 
+#include <functional>
 #include <vector>
 
 class Vertex {
@@ -19,5 +20,18 @@ private:
     unsigned int _color;
     std::vector<unsigned int> edgeList;
 };
+
+inline bool operator==(const Vertex& lhs, const Vertex& rhs) {
+    return lhs.getID() == rhs.getID();
+}
+
+namespace std {
+template <>
+struct hash<Vertex> {
+    size_t operator()(const Vertex& v) const {
+        return hash<unsigned int>()(v.getID());
+    }
+};
+} // namespace std
 
 #endif // UNTITLED_VERTEX_H
