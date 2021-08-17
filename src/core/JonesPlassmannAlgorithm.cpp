@@ -11,7 +11,7 @@
 
 namespace {
 std::mutex mtx;
-void JPWorker(std::vector<Vertex>& vertices, std::unordered_set<int>& U,
+void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
               std::shared_ptr<std::vector<int>> r_p,
               const std::unordered_set<int>::const_iterator U_begin,
               const std::unordered_set<int>::const_iterator U_end, std::unordered_set<int>& i_set) {
@@ -20,7 +20,7 @@ void JPWorker(std::vector<Vertex>& vertices, std::unordered_set<int>& U,
     std::unordered_set<int> i_set_prime; // independent set for the subgraph received by the worker
     for (auto v = U_begin; v != U_end; v++) {
         bool peak = true;
-        const auto edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
         for (auto vx : edge_list) {
             if (U.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
                 peak = false;

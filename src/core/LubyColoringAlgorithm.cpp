@@ -13,7 +13,7 @@
 
 namespace {
 std::mutex mtx;
-void independentSetWorker(std::vector<Vertex>& vertices, std::unordered_set<int>& A,
+void independentSetWorker(const std::vector<Vertex>& vertices, const std::unordered_set<int>& A,
                           std::shared_ptr<std::vector<int>> r_p,
                           const std::unordered_set<int>::const_iterator A_begin,
                           const std::unordered_set<int>::const_iterator A_end,
@@ -23,7 +23,7 @@ void independentSetWorker(std::vector<Vertex>& vertices, std::unordered_set<int>
 
     for (auto v = A_begin; v != A_end; v++) {
         bool peak = true;
-        const auto edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
         for (auto vx : edge_list) {
             if (A.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
                 peak = false;
@@ -32,7 +32,7 @@ void independentSetWorker(std::vector<Vertex>& vertices, std::unordered_set<int>
         }
         if (peak) {
             i_set_prime.insert(*v);
-            x_set_prime.insert(edge_list.begin(), edge_list.end());
+            x_set_prime.insert(edge_list.cbegin(), edge_list.cend());
         }
     }
 
