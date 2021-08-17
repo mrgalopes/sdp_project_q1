@@ -23,7 +23,7 @@ void independentSetWorker(const std::vector<Vertex>& vertices, const std::unorde
 
     for (auto v = A_begin; v != A_end; v++) {
         bool peak = true;
-        const auto edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
         for (auto vx : edge_list) {
             if (A.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
                 peak = false;
@@ -32,7 +32,7 @@ void independentSetWorker(const std::vector<Vertex>& vertices, const std::unorde
         }
         if (peak) {
             i_set_prime.insert(*v);
-            x_set_prime.insert(edge_list.begin(), edge_list.end());
+            x_set_prime.insert(edge_list.cbegin(), edge_list.cend());
         }
     }
 

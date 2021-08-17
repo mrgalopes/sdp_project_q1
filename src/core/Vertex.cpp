@@ -22,7 +22,7 @@ unsigned int Vertex::getID() const {
  * this function returns the object edge list (list with all vertexes connected)
  *
  */
-std::vector<unsigned int> Vertex::getEdgeList() const {
+const std::vector<unsigned int>& Vertex::getEdgeList() const {
     return this->edgeList;
 }
 

@@ -10,7 +10,7 @@ public:
     // default destructor is enough
     void addEdge(unsigned int otherID);
     unsigned int getID() const;
-    std::vector<unsigned int> getEdgeList() const;
+    const std::vector<unsigned int>& getEdgeList() const;
     unsigned int getColor() const;
     void setColor(int color);
 
