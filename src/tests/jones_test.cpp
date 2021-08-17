@@ -1,15 +1,12 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <iostream>
 #include "core/Graph.h"
-#include "core/IOMethods.h"
 #include "core/JonesPlassmannAlgorithm.h"
-
-#include "tests/test_helpers.h"
-
-#include <thread>
+#include "test_helpers.h"
 
 TEST_CASE("Jones coloring test", "[check_jones]") {
-    Graph graph = loadDefaultGraph();
+    Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = JonesPlassmannAlgorithm(8, 1);

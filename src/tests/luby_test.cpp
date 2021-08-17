@@ -1,12 +1,12 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <iostream>
 #include "core/Graph.h"
 #include "core/LubyColoringAlgorithm.h"
-
-#include "tests/test_helpers.h"
+#include "test_helpers.h"
 
 TEST_CASE("Luby coloring test", "[check_luby]") {
-    Graph graph = loadDefaultGraph();
+    Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = LubyColoringAlgorithm(8, 1);

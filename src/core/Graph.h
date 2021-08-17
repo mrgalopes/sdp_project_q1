@@ -3,16 +3,22 @@
 #define GRAPH_H
 
 #include <vector>
-#include "ColoringStrategy.h"
 #include "Vertex.h"
 
-struct Graph {
+class ColoringStrategy;
+
+class Graph {
+public:
     std::vector<Vertex> vertices;
-    void addVertex(const Vertex& vertex);
-    void colorize(ColoringStrategy* coloringStrategy);
-    void printVertices() const;
     unsigned int numVertices;
     unsigned int numEdges;
+
+    // methods
+    void addVertex(Vertex&& vertex);
+    void addVertex(Vertex&& vertex, unsigned int id);
+    void colorize(ColoringStrategy* coloringStrategy);
+    void printVertices() const;
+    bool operator==(const Graph&) const;
 };
 
 #endif // GRAPH_H

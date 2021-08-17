@@ -1,7 +1,5 @@
 #include <iostream>
-#include <iterator>
 #include <sstream>
-#include <string>
 
 #include "core/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
@@ -20,7 +18,7 @@ int main() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graphFile("../../dist/graphs/rgg_n_2_15_s0.graph");
-    IOM::loadGraph(graph, graphFile);
+    IOM::loadGraphThreaded(graph, graphFile);
     graphFile.close();
 
     // TESTING COLORING ALGORITHM
@@ -30,6 +28,6 @@ int main() {
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "\n -- END OF TEST --" << std::endl;
-    delete coloringAlgorithm;
+    // delete coloringAlgorithm;
     return 0;
 }

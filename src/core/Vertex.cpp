@@ -1,12 +1,6 @@
-//
-// Created by Benevides on 04/08/2021.
-//
 
-#include <algorithm>
-#include <unordered_set>
 #include <vector>
 #include "Vertex.h"
-#include "iostream"
 
 /*
  * Vertex::addEdge(unsigned int otherID)
