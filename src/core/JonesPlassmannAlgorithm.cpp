@@ -11,7 +11,7 @@
 
 namespace {
 std::mutex mtx;
-void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
+void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
               std::shared_ptr<std::vector<int>> r_p,
               const std::unordered_set<int>::const_iterator U_begin,
               const std::unordered_set<int>::const_iterator U_end, std::unordered_set<int>& i_set) {
@@ -22,7 +22,7 @@ void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
         bool peak = true;
         const auto& edge_list = vertices.at(*v - 1).getEdgeList();
         for (auto vx : edge_list) {
-            if (U.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
+            if (bitset_U[vx-1] && r_p->at(vx - 1) > r_p->at(*v - 1)) {
                 peak = false;
                 break;
             }
@@ -51,18 +51,20 @@ void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
 } // namespace
 
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
-    std::size_t size_u = vertices.size();
+    const std::size_t size_u = vertices.size();
+    std::size_t count_u = size_u;
 
     auto r_p = std::make_shared<std::vector<int>>(size_u); // random permutation
     std::iota(r_p->begin(), r_p->end(), 1);                // r_p has all the ids
 
     std::unordered_set<int> U{r_p->begin(), r_p->end()}; // U contains the IDs of uncolored vertices
+    std::vector<bool> bitset_U(size_u, true); // bitset
 
     // randomly shuffle the values in r_p to use as weights
     std::shuffle(r_p->begin(), r_p->end(), std::default_random_engine(_seed));
 
     std::unordered_set<int> i_set{};
-    while (!U.empty()) {
+    while (count_u > 0) {
         i_set.clear();
 
         // choose independent set and color it
@@ -73,7 +75,7 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
             auto U_end = U.cbegin();
             std::advance(U_end, ((i + 1) * U.size()) / this->_numWorkers);
 
-            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(U), r_p, U_begin, U_end,
+            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(bitset_U), r_p, U_begin, U_end,
                                  std::ref(i_set));
         }
         for (auto& t : workers) {
@@ -82,6 +84,8 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
 
         for (auto& v : i_set) {
             U.erase(v);
+            bitset_U[v-1] = false;
+            count_u--;
         }
     }
 }
