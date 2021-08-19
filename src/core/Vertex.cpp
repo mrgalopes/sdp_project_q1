@@ -36,6 +36,6 @@ unsigned int Vertex::getColor() const {
     return this->_color;
 }
 
-void Vertex::setColor(int color) {
+void Vertex::setColor(unsigned int color) {
     this->_color = color;
 }
