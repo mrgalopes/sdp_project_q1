@@ -16,9 +16,9 @@ void BasicColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
 
     for (auto& id : r_p) {
         const auto& edge_list = vertices.at(id - 1).getEdgeList();
-        const std::size_t max_color = edge_list.size(); //you'll never need a color higher than that
-        std::vector<bool> usedColors; //bitset
-        usedColors.resize(max_color+1);
+        const std::size_t max_color = edge_list.size(); // you'll never need a higher color
+        std::vector<bool> usedColors;                   // bitset
+        usedColors.resize(max_color + 1);
         // add all connected vertices colors to the usedColor list
         for (auto& t : edge_list) {
             const unsigned int color = vertices.at(t - 1).getColor();

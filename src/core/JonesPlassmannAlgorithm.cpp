@@ -29,9 +29,9 @@ void JPWorker(std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
         }
         if (peak) { // insert in independent set and color it
             i_set_prime.insert(*v);
-            const std::size_t max_color = edge_list.size(); //you'll never need a color higher than that
-            std::vector<bool> usedColors; //bitset
-            usedColors.resize(max_color+1);
+            const std::size_t max_color = edge_list.size(); // you'll never need a higher color
+            std::vector<bool> usedColors;                   // bitset
+            usedColors.resize(max_color + 1);
             for (auto& o : edge_list) {
                 const unsigned int color = vertices.at(o - 1).getColor();
                 if (color <= max_color)
