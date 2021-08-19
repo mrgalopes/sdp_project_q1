@@ -9,13 +9,11 @@ if (MSVC)
     add_compile_options(
         /W3
         /MP
+        /Zi
+        /Zo
     )
-    if (NOT USE_CCACHE)
-        add_compile_options(
-            /Zi
-            /Zo
-        )
-    endif()
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG   "/DEBUG /MANIFEST:NO" CACHE STRING "" FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/DEBUG /MANIFEST:NO /INCREMENTAL:NO /OPT:REF,ICF" CACHE STRING "" FORCE)
 else()
     add_compile_options(
         -Wall
