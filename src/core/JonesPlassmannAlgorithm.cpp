@@ -11,24 +11,25 @@
 
 namespace {
 std::mutex mtx;
-void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
-              std::shared_ptr<std::vector<int>> r_p,
-              const std::unordered_set<int>::const_iterator U_begin,
-              const std::unordered_set<int>::const_iterator U_end, std::unordered_set<int>& i_set) {
+void JPWorker(std::vector<Vertex>& vertices, std::vector<bool>& bitset_U, std::vector<unsigned int>& U,
+              std::shared_ptr<std::vector<unsigned int>> r_p,
+              std::size_t U_begin,
+              std::size_t U_end, std::unordered_set<unsigned int>& i_set) {
 
     unsigned int i = 0;
-    std::unordered_set<int> i_set_prime; // independent set for the subgraph received by the worker
-    for (auto v = U_begin; v != U_end; v++) {
+    std::unordered_set<unsigned int> i_set_prime; // independent set for the subgraph received by the worker
+    for (auto j = U_begin; j != U_end; j++) {
+        const auto v = U[j];
         bool peak = true;
-        const auto& edge_list = vertices.at(*v - 1).getEdgeList();
+        const auto& edge_list = vertices.at(v - 1).getEdgeList();
         for (auto vx : edge_list) {
-            if (bitset_U[vx-1] && r_p->at(vx - 1) > r_p->at(*v - 1)) {
+            if (bitset_U[vx-1] && r_p->at(vx - 1) > r_p->at(v - 1)) {
                 peak = false;
                 break;
             }
         }
         if (peak) { // insert in independent set and color it
-            i_set_prime.insert(*v);
+            i_set_prime.insert(v);
             const std::size_t max_color = edge_list.size(); // you'll never need a higher color
             std::vector<bool> usedColors;                   // bitset
             usedColors.resize(max_color + 1);
@@ -41,7 +42,7 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
                 if (!usedColors[i])
                     break;
             }
-            vertices.at(*v - 1).setColor(i);
+            vertices.at(v - 1).setColor(i);
         }
     }
     mtx.lock();
@@ -54,28 +55,26 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     const std::size_t size_u = vertices.size();
     std::size_t count_u = size_u;
 
-    auto r_p = std::make_shared<std::vector<int>>(size_u); // random permutation
+    auto r_p = std::make_shared<std::vector<unsigned int>>(size_u); // random permutation
     std::iota(r_p->begin(), r_p->end(), 1);                // r_p has all the ids
 
-    std::unordered_set<int> U{r_p->begin(), r_p->end()}; // U contains the IDs of uncolored vertices
+    std::vector<unsigned int> U{r_p->begin(), r_p->end()}; // U contains the IDs of uncolored vertices
     std::vector<bool> bitset_U(size_u, true); // bitset
 
     // randomly shuffle the values in r_p to use as weights
     std::shuffle(r_p->begin(), r_p->end(), std::default_random_engine(_seed));
 
-    std::unordered_set<int> i_set{};
+    std::unordered_set<unsigned int> i_set{};
     while (count_u > 0) {
         i_set.clear();
 
         // choose independent set and color it
         std::vector<std::thread> workers;
         for (int i = 0; i < this->_numWorkers; i++) {
-            auto U_begin = U.cbegin();
-            std::advance(U_begin, (i * U.size()) / this->_numWorkers);
-            auto U_end = U.cbegin();
-            std::advance(U_end, ((i + 1) * U.size()) / this->_numWorkers);
+            auto U_begin = (i * U.size()) / this->_numWorkers;
+            auto U_end = ((i + 1) * U.size()) / this->_numWorkers;
 
-            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(bitset_U), r_p, U_begin, U_end,
+            workers.emplace_back(JPWorker, std::ref(vertices), std::ref(bitset_U), std::ref(U), r_p, U_begin, U_end,
                                  std::ref(i_set));
         }
         for (auto& t : workers) {
@@ -83,9 +82,9 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
         }
 
         for (auto& v : i_set) {
-            U.erase(v);
             bitset_U[v-1] = false;
             count_u--;
         }
+        std::erase_if(U, [=](int v){return bitset_U[v-1]!=true;});
     }
 }
