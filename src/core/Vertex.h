@@ -13,7 +13,7 @@ public:
     unsigned int getID() const;
     const std::vector<unsigned int>& getEdgeList() const;
     unsigned int getColor() const;
-    void setColor(int color);
+    void setColor(unsigned int color);
 
 private:
     unsigned int _ID;

@@ -7,7 +7,6 @@
 
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     unsigned int i;
-    std::set<unsigned int> usedColors;
     const unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // random permutation
@@ -16,22 +15,24 @@ void BasicColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     std::shuffle(r_p.begin(), r_p.end(), std::default_random_engine(seed));
 
     for (auto& id : r_p) {
+        const auto& edge_list = vertices.at(id - 1).getEdgeList();
+        const std::size_t max_color = edge_list.size(); // you'll never need a higher color
+        std::vector<bool> usedColors(max_color + 1, false);    // bitset
         // add all connected vertices colors to the usedColor list
-        for (auto& t : vertices.at(id - 1).getEdgeList()) {
-            usedColors.insert(vertices.at(t - 1).getColor());
+        for (auto& t : edge_list) {
+            const unsigned int color = vertices.at(t - 1).getColor();
+            if (color <= max_color)
+                usedColors[color] = true;
         }
 
         // select the lowest used color
-        for (i = 1; i <= vertices.at(id - 1).getEdgeList().size(); i++) {
-            if (!usedColors.contains(i))
+        for (i = 1; i <= edge_list.size(); i++) {
+            if (!usedColors[i])
                 break; // the color is not being used, break
         }
 
         // give color to the vertex
         vertices.at(id - 1).setColor(i);
-
-        // clear the usedColor set for the next vertex
-        usedColors.clear();
     }
     return;
 }
