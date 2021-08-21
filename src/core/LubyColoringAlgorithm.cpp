@@ -1,15 +1,13 @@
 
-#include <algorithm>
+#include <chrono>
 #include <functional>
 #include <memory>
 #include <mutex>
 #include <numeric>
 #include <random>
-#include <set>
 #include <thread>
-#include "LubyColoringAlgorithm.h"
-
 #include <unordered_set>
+#include "LubyColoringAlgorithm.h"
 
 namespace {
 std::mutex mtx;
@@ -42,6 +40,11 @@ void independentSetWorker(const std::vector<Vertex>& vertices, const std::unorde
     mtx.unlock();
 }
 } // Anonymous namespace
+
+// uses time-based seed by default
+LubyColoringAlgorithm::LubyColoringAlgorithm()
+    : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
+      _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     std::size_t size_u = vertices.size();

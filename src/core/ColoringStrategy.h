@@ -6,6 +6,7 @@
 
 class ColoringStrategy {
 public:
+    virtual ~ColoringStrategy() = default;
     virtual void colorGraph(std::vector<Vertex>& vertices) = 0;
 };
 
