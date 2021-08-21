@@ -25,7 +25,7 @@ Graph loadDefaultThreaded() {
     return graph;
 }
 
-bool noAdjacentVertexWithSameColor(Graph& graph) {
+bool noAdjacentVertexWithSameColor(const Graph& graph) {
     for (auto& v : graph.vertices) {
         unsigned int color = v.getColor();
         for (auto& edgeID : v.getEdgeList()) {
@@ -39,19 +39,17 @@ bool noAdjacentVertexWithSameColor(Graph& graph) {
     return true;
 }
 
-int noUncoloredVertex(Graph& graph) {
+int noUncoloredVertex(const Graph& graph) {
     int numUncolored = 0;
-    std::set<int> uncoloredVertices;
     for (auto& v : graph.vertices) {
         if (v.getColor() == 0) {
             numUncolored++;
-            uncoloredVertices.insert(v.getID());
         }
     }
     return numUncolored;
 }
 
-unsigned int maxColor(Graph& graph) {
+unsigned int maxColor(const Graph& graph) {
     unsigned int maxColor = 0;
     for (auto& v : graph.vertices) {
         if (v.getColor() > maxColor)

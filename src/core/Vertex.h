@@ -8,7 +8,21 @@ class Vertex {
 public:
     Vertex() : _ID(0), _color(0){};
     Vertex(unsigned int ID) : _ID(ID), _color(0){};
+    Vertex(const Vertex&) = delete;
+    Vertex& operator=(const Vertex&) = delete;
+    Vertex(Vertex&& other) noexcept
+        : _ID(std::move(other._ID)), _color(std::move(other._color)),
+          edgeList(std::move(other.edgeList)){};
+    Vertex& operator=(Vertex&& other){
+        _ID = other._ID;
+        _color = other._color;
+        edgeList = std::move(other.edgeList);
+        return *this;
+    }
+
     // default destructor is enough
+    ~Vertex() = default;
+
     void addEdge(unsigned int otherID);
     unsigned int getID() const;
     const std::vector<unsigned int>& getEdgeList() const;

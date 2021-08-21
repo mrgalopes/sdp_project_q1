@@ -7,8 +7,8 @@
 Graph loadDefaultSequential();
 Graph loadDefaultThreaded();
 
-bool noAdjacentVertexWithSameColor(Graph& graph);
-int noUncoloredVertex(Graph& graph);
-unsigned int maxColor(Graph& graph);
+bool noAdjacentVertexWithSameColor(const Graph& graph);
+int noUncoloredVertex(const Graph& graph);
+unsigned int maxColor(const Graph& graph);
 
 #endif // TEST_HELPERS_H
