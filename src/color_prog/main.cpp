@@ -20,6 +20,7 @@
 #include "core/JonesPlassmannAlgorithm.h"
 #include "core/LubyColoringAlgorithm.h"
 
+#ifdef _WIN32
 std::string UTF16ToUTF8(const std::wstring& input) {
     if (input.empty())
         return std::string();
@@ -36,6 +37,7 @@ std::string UTF16ToUTF8(const std::wstring& input) {
 
     return output;
 }
+#endif
 
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0

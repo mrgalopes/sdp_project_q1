@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iterator>
 #include <mutex>
+#include <sstream>
 #include <thread>
 #include "Graph.h"
 #include "IOMethods.h"
