@@ -1,7 +1,6 @@
 #ifndef UNTITLED_VERTEX_H
 #define UNTITLED_VERTEX_H
 
-#include <functional>
 #include <vector>
 
 class Vertex {

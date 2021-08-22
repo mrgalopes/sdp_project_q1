@@ -1,10 +1,9 @@
-#include <algorithm>
+
 #include <chrono>
 #include <memory>
 #include <mutex>
 #include <numeric>
 #include <random>
-#include <set>
 #include <thread>
 #include <unordered_set>
 #include "JonesPlassmannAlgorithm.h"
@@ -50,6 +49,11 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
     mtx.unlock();
 }
 } // namespace
+
+// uses time-based seed by default
+JonesPlassmannAlgorithm::JonesPlassmannAlgorithm()
+    : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
+      _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     const std::size_t size_u = vertices.size();

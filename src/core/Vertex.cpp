@@ -4,8 +4,9 @@
 
 /*
  * Vertex::addEdge(unsigned int otherID)
- * this function receives de ID of another Vertex and adds it to the edgeList of the current Vertex
- * the Vertex's edgeList contains all the IDs of vertexes connected to it.
+ * this function receives de ID of another Vertex and adds it to the edgeList of
+ * the current Vertex the Vertex's edgeList contains all the IDs of vertexes
+ * connected to it.
  *
  */
 void Vertex::addEdge(unsigned int otherID) {
