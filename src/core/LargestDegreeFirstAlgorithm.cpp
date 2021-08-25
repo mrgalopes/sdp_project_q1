@@ -10,7 +10,8 @@
 namespace {
     std::mutex mtx;
     void LargestDegreeFirstWorker(
-            std::vector<Vertex>& vertices, const std::unordered_set<int>& U,
+            std::vector<Vertex>& vertices,
+            const std::unordered_set<int>& U,
             std::shared_ptr<std::vector<int>> r_p,
             const std::unordered_set<int>::const_iterator U_begin,
             const std::unordered_set<int>::const_iterator U_end,
@@ -21,8 +22,9 @@ namespace {
         for (auto v = U_begin; v != U_end; v++) {
             bool peak = true;
             const auto& edge_list = vertices.at(*v - 1).getEdgeList();
+            const auto numberEdges = edge_list.size();
             for (auto vx : edge_list) {
-                if (U.contains(vx) && r_p->at(vx - 1) > r_p->at(*v - 1)) {
+                if (U.contains(vx) && vertices.at(vx-1).getEdgeList().size() > numberEdges) {
                     peak = false;
                     break;
                 }
@@ -50,14 +52,13 @@ namespace {
 void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     std::size_t size_u = vertices.size();
 
-    auto weights_p = std::make_shared<std::vector<int>>(size_u);
+    auto r_p = std::make_shared<std::vector<int>>(size_u); // random permutation
+    std::iota(r_p->begin(), r_p->end(), 1);                // r_p has all the ids
 
-    // weights in this algorithm is number of edges
-    for (std::size_t i = 0; i < size_u; i++) {
-        weights_p->at(i) = (int) vertices.at(i).getEdgeList().size();
-    }
+    std::unordered_set<int> U{r_p->begin(), r_p->end()}; // U contains the IDs of uncolored vertices
 
-    std::unordered_set<int> U{weights_p->begin(), weights_p->end()}; // U contains the IDs of uncolored vertices
+    // randomly shuffle the values in r_p to use as weights
+    std::shuffle(r_p->begin(), r_p->end(), std::default_random_engine(_seed));
 
     std::unordered_set<int> i_set{};
     while (!U.empty()) {
@@ -74,7 +75,7 @@ void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
             workers.emplace_back(LargestDegreeFirstWorker,
                                  std::ref(vertices),
                                  std::ref(U),
-                                 weights_p,
+                                 r_p,
                                  U_begin,
                                  U_end,
                                  std::ref(i_set));
