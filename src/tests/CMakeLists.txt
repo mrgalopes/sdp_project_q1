@@ -6,7 +6,7 @@ add_executable(tests
     luby_test.cpp
     jones_test.cpp
     load_graph_test.cpp
-)
+    largest_degree_first_test.cpp)
 
 target_link_libraries(tests PRIVATE core)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
