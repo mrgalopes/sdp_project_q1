@@ -1,3 +1,4 @@
+#include <chrono>
 #include <memory>
 #include <mutex>
 #include <numeric>
@@ -48,6 +49,14 @@ namespace {
     }
 } // namespace
 
+
+LargestDegreeFirstAlgorithm::LargestDegreeFirstAlgorithm()
+        : ColoringStrategy(), _numWorkers(default_workers),
+          _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
+
+LargestDegreeFirstAlgorithm::LargestDegreeFirstAlgorithm(int numWorkers)
+        : ColoringStrategy(), _numWorkers(numWorkers),
+          _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex> &vertices) {
     std::size_t size_u = vertices.size();

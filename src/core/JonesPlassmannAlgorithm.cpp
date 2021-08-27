@@ -55,6 +55,10 @@ JonesPlassmannAlgorithm::JonesPlassmannAlgorithm()
     : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
+JonesPlassmannAlgorithm::JonesPlassmannAlgorithm(int numWorkers)
+    : ColoringStrategy(), _numWorkers(numWorkers),
+      _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
+
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     const std::size_t size_u = vertices.size();
 

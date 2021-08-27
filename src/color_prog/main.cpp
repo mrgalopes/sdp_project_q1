@@ -18,6 +18,7 @@
 #include "core/Graph.h"
 #include "core/IOMethods.h"
 #include "core/JonesPlassmannAlgorithm.h"
+#include "core/LargestDegreeFirstAlgorithm.h"
 #include "core/LubyColoringAlgorithm.h"
 
 #ifdef _WIN32
@@ -42,18 +43,27 @@ std::string UTF16ToUTF8(const std::wstring& input) {
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
-                 "-b, --basic          Use a sequential greedy coloring strategy\n"
-                 "-l, --luby           Use the Luby MIS coloring strategy\n"
-                 "-j, --jones          Use the Jones Plassmann coloring strategy\n"
-                 "-h, --help           Display this help text and exit\n";
+                 "-b, --basic           Use a sequential greedy coloring strategy\n"
+                 "-l, --luby            Use the Luby MIS coloring strategy\n"
+                 "-j, --jones           Use the Jones Plassmann coloring strategy\n"
+                 "-d, --ldf             Use the Lowest Degree First coloring strategy\n"
+                 "-t, --threads=NUMBER  Use NUMBER threads on the coloring strategy, if supported. Default:4\n"
+                 "-h, --help            Display this help text and exit\n";
 }
 
-enum class ColorStrategy { Basic, Luby, Jones };
+enum class ColorStrategy {
+    Basic,
+    Luby,
+    Jones,
+    LDF,
+};
 
 int main(int argc, char** argv) {
     Graph graph;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
+    int n_threads = 4;
+    char *endarg;
 
 #ifdef _WIN32
     int argc_w;
@@ -70,12 +80,14 @@ int main(int argc, char** argv) {
         {"basic", no_argument, 0, 'b'},
         {"luby", no_argument, 0, 'l'},
         {"jones", no_argument, 0, 'j'},
+        {"ldf", no_argument,0, 'd'},
         {"help", no_argument, 0, 'h'},
+        {"threads", no_argument, 0, 't'},
         {0, 0, 0, 0},
     };
 
     while (optind < argc) {
-        int arg = getopt_long(argc, argv, "bljh", long_options, &option_index);
+        int arg = getopt_long(argc, argv, "bljdht:", long_options, &option_index);
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'b':
@@ -87,9 +99,16 @@ int main(int argc, char** argv) {
             case 'j':
                 selected = ColorStrategy::Jones;
                 break;
+            case 'd':
+                selected = ColorStrategy::LDF;
+                break;
             case 'h':
                 PrintHelp(argv[0]);
                 return 0;
+            case 't':
+                n_threads = strtoul(optarg, &endarg, 0);
+                std::cout << "Using " << n_threads << " threads" << std::endl;
+                break;
             }
         } else {
 #ifdef _WIN32
@@ -113,11 +132,13 @@ int main(int argc, char** argv) {
         coloringAlgorithm = new BasicColoringAlgorithm();
         break;
     case ColorStrategy::Luby:
-        coloringAlgorithm = new LubyColoringAlgorithm();
+        coloringAlgorithm = new LubyColoringAlgorithm(n_threads);
         break;
     case ColorStrategy::Jones:
-        coloringAlgorithm = new JonesPlassmannAlgorithm();
+        coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads);
         break;
+    case ColorStrategy::LDF:
+        coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads);
     }
 
     graph.colorize(coloringAlgorithm);

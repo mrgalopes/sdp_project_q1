@@ -43,7 +43,11 @@ void independentSetWorker(const std::vector<Vertex>& vertices, const std::unorde
 
 // uses time-based seed by default
 LubyColoringAlgorithm::LubyColoringAlgorithm()
-    : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
+    : ColoringStrategy(), _numWorkers(default_workers),
+      _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
+
+LubyColoringAlgorithm::LubyColoringAlgorithm(int numWorkers)
+    : ColoringStrategy(), _numWorkers(numWorkers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
