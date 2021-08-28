@@ -71,6 +71,7 @@ enum class ColorStrategy {
 
 int main(int argc, char** argv) {
     Graph graph;
+    bool parallel = true;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
     int n_threads = 4;
@@ -105,6 +106,7 @@ int main(int argc, char** argv) {
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'b':
+                parallel = false;
                 selected = ColorStrategy::Basic;
                 break;
             case 'l':
@@ -145,9 +147,15 @@ int main(int argc, char** argv) {
     }
 
     // READING FILE AND CONSTRUCTING GRAPH
+    std::chrono::steady_clock::time_point time_start;
+    std::chrono::steady_clock::time_point time_middle;
+    std::chrono::steady_clock::time_point time_end;
+
+    time_start = std::chrono::steady_clock::now();
     std::ifstream graphFile(filepath);
     IOM::loadGraphThreaded(graph, graphFile);
     graphFile.close();
+    time_middle = std::chrono::steady_clock::now();
 
     ColoringStrategy* coloringAlgorithm;
     // TESTING COLORING ALGORITHM
@@ -167,10 +175,13 @@ int main(int argc, char** argv) {
 
     graph.colorize(coloringAlgorithm);
 
+    time_end = std::chrono::steady_clock::now();
+    std::cout << "Elapsed time (reading): " << std::chrono::duration_cast<std::chrono::milliseconds>(time_middle - time_start).count() << "[ms]" << std::endl;
+    std::cout << "Elapsed time (coloring): " << std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_middle).count() << "[ms]" << std::endl;
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "Number of colors: " << maxColor(graph) << std::endl;
-    std::cout << "\n -- END OF TEST --" << std::endl;
+    std::cout << "\n -- Coloring finished --" << std::endl;
     delete coloringAlgorithm;
     return 0;
 }
