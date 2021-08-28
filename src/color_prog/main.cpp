@@ -71,7 +71,6 @@ enum class ColorStrategy {
 
 int main(int argc, char** argv) {
     Graph graph;
-    bool parallel = true;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
     int n_threads = 4;
@@ -106,7 +105,6 @@ int main(int argc, char** argv) {
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'b':
-                parallel = false;
                 selected = ColorStrategy::Basic;
                 break;
             case 'l':
@@ -125,10 +123,10 @@ int main(int argc, char** argv) {
                 tmp = strtoul(optarg, &endarg, 0);
                 if (tmp > 0) {
                     n_threads = tmp;
-                    std::cout << "Using " << n_threads << " threads" << std::endl;
+                    std::cout << "Using " << n_threads << " threads (if applicable)" << std::endl;
                 }
                 else {
-                    std::cout << "Invalid threads number, using default" << std::endl;
+                    std::cout << "Invalid threads number, using default (if applicable)" << std::endl;
                 }
                 break;
             case 's':
@@ -162,14 +160,18 @@ int main(int argc, char** argv) {
     switch (selected) {
     case ColorStrategy::Basic:
         coloringAlgorithm = new BasicColoringAlgorithm(seed);
+        std::cout << "Coloring method: Sequential" << std::endl;
         break;
     case ColorStrategy::Luby:
+        std::cout << "Coloring method: Luby" << std::endl;
         coloringAlgorithm = new LubyColoringAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::Jones:
+        std::cout << "Coloring method: Jones" << std::endl;
         coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::LDF:
+        std::cout << "Coloring method: Largest Degree First" << std::endl;
         coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
     }
 
