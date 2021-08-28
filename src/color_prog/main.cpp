@@ -123,10 +123,10 @@ int main(int argc, char** argv) {
                 tmp = strtoul(optarg, &endarg, 0);
                 if (tmp > 0) {
                     n_threads = tmp;
-                    std::cout << "Using " << n_threads << " threads" << std::endl;
+                    std::cout << "Using " << n_threads << " threads (if applicable)" << std::endl;
                 }
                 else {
-                    std::cout << "Invalid threads number, using default" << std::endl;
+                    std::cout << "Invalid threads number, using default (if applicable)" << std::endl;
                 }
                 break;
             case 's':
@@ -145,32 +145,45 @@ int main(int argc, char** argv) {
     }
 
     // READING FILE AND CONSTRUCTING GRAPH
+    std::chrono::steady_clock::time_point time_start;
+    std::chrono::steady_clock::time_point time_middle;
+    std::chrono::steady_clock::time_point time_end;
+
+    time_start = std::chrono::steady_clock::now();
     std::ifstream graphFile(filepath);
     IOM::loadGraphThreaded(graph, graphFile);
     graphFile.close();
+    time_middle = std::chrono::steady_clock::now();
 
     ColoringStrategy* coloringAlgorithm;
     // TESTING COLORING ALGORITHM
     switch (selected) {
     case ColorStrategy::Basic:
         coloringAlgorithm = new BasicColoringAlgorithm(seed);
+        std::cout << "Coloring method: Sequential" << std::endl;
         break;
     case ColorStrategy::Luby:
+        std::cout << "Coloring method: Luby" << std::endl;
         coloringAlgorithm = new LubyColoringAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::Jones:
+        std::cout << "Coloring method: Jones" << std::endl;
         coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::LDF:
+        std::cout << "Coloring method: Largest Degree First" << std::endl;
         coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
     }
 
     graph.colorize(coloringAlgorithm);
 
+    time_end = std::chrono::steady_clock::now();
+    std::cout << "Elapsed time (reading): " << std::chrono::duration_cast<std::chrono::milliseconds>(time_middle - time_start).count() << "[ms]" << std::endl;
+    std::cout << "Elapsed time (coloring): " << std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_middle).count() << "[ms]" << std::endl;
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "Number of colors: " << maxColor(graph) << std::endl;
-    std::cout << "\n -- END OF TEST --" << std::endl;
+    std::cout << "\n -- Coloring finished --" << std::endl;
     delete coloringAlgorithm;
     return 0;
 }

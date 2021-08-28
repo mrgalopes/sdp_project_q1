@@ -7,7 +7,7 @@
 #include "IOMethods.h"
 
 namespace {
-unsigned int numThreads = 4;
+unsigned int numThreads = std::min(4u, std::thread::hardware_concurrency());
 std::mutex readMutex;
 void readThread(Graph& graph, std::ifstream& graphFile, unsigned int& n) {
     std::vector<std::string> splitLine;
