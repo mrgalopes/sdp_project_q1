@@ -3,7 +3,6 @@
 #define BASIC_COLORING_ALGORITHM_H
 
 #include "ColoringStrategy.h"
-#include <chrono>
 
 class BasicColoringAlgorithm : public ColoringStrategy {
 public:

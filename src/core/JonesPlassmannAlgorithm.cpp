@@ -52,7 +52,7 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
 
 // uses time-based seed by default
 JonesPlassmannAlgorithm::JonesPlassmannAlgorithm()
-    : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
+    : ColoringStrategy(), _numWorkers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
