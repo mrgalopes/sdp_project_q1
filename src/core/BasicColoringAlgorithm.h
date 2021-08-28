@@ -7,8 +7,9 @@
 class BasicColoringAlgorithm : public ColoringStrategy {
 public:
     BasicColoringAlgorithm();
-    BasicColoringAlgorithm(unsigned int seed) : seed(seed) {};
+    BasicColoringAlgorithm(unsigned int seed) : seed(seed){};
     void colorGraph(std::vector<Vertex>& vertices) override;
+
 private:
     unsigned int seed;
 };
