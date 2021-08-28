@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 #ifdef _WIN32
 // windows.h needs to be included before shellapi.h
@@ -48,7 +49,17 @@ static void PrintHelp(const char* argv0) {
                  "-j, --jones           Use the Jones Plassmann coloring strategy\n"
                  "-d, --ldf             Use the Lowest Degree First coloring strategy\n"
                  "-t, --threads=NUMBER  Use NUMBER threads on the coloring strategy, if supported. Default:4\n"
+                 "-s, --seed=NUMBER     Use NUMBER as random seed of the algorithm, if supported. Default: time based pseudo-random\n"
                  "-h, --help            Display this help text and exit\n";
+}
+
+unsigned int maxColor(Graph& graph) {
+    unsigned int maxColor = 0;
+    for (auto& v : graph.vertices) {
+        if (v.getColor() > maxColor)
+            maxColor = v.getColor();
+    }
+    return maxColor;
 }
 
 enum class ColorStrategy {
@@ -63,6 +74,7 @@ int main(int argc, char** argv) {
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
     int n_threads = 4;
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     char *endarg;
 
 #ifdef _WIN32
@@ -82,12 +94,14 @@ int main(int argc, char** argv) {
         {"jones", no_argument, 0, 'j'},
         {"ldf", no_argument,0, 'd'},
         {"help", no_argument, 0, 'h'},
-        {"threads", no_argument, 0, 't'},
+        {"threads", required_argument, 0, 't'},
+        {"seed", required_argument, 0, 's'},
         {0, 0, 0, 0},
     };
 
     while (optind < argc) {
-        int arg = getopt_long(argc, argv, "bljdht:", long_options, &option_index);
+        int arg = getopt_long(argc, argv, "bljdht:s:", long_options, &option_index);
+        int tmp;
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'b':
@@ -106,8 +120,18 @@ int main(int argc, char** argv) {
                 PrintHelp(argv[0]);
                 return 0;
             case 't':
-                n_threads = strtoul(optarg, &endarg, 0);
-                std::cout << "Using " << n_threads << " threads" << std::endl;
+                tmp = strtoul(optarg, &endarg, 0);
+                if (tmp > 0) {
+                    n_threads = tmp;
+                    std::cout << "Using " << n_threads << " threads" << std::endl;
+                }
+                else {
+                    std::cout << "Invalid threads number, using default" << std::endl;
+                }
+                break;
+            case 's':
+                seed = strtoul(optarg, &endarg, 0);
+                std::cout << "Using " << seed << " as seed" << std::endl;
                 break;
             }
         } else {
@@ -129,22 +153,23 @@ int main(int argc, char** argv) {
     // TESTING COLORING ALGORITHM
     switch (selected) {
     case ColorStrategy::Basic:
-        coloringAlgorithm = new BasicColoringAlgorithm();
+        coloringAlgorithm = new BasicColoringAlgorithm(seed);
         break;
     case ColorStrategy::Luby:
-        coloringAlgorithm = new LubyColoringAlgorithm(n_threads);
+        coloringAlgorithm = new LubyColoringAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::Jones:
-        coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads);
+        coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::LDF:
-        coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads);
+        coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
     }
 
     graph.colorize(coloringAlgorithm);
 
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
+    std::cout << "Number of colors: " << maxColor(graph) << std::endl;
     std::cout << "\n -- END OF TEST --" << std::endl;
     delete coloringAlgorithm;
     return 0;

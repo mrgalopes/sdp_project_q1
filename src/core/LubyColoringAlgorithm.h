@@ -7,7 +7,6 @@
 class LubyColoringAlgorithm : public ColoringStrategy {
 public:
     LubyColoringAlgorithm();
-    LubyColoringAlgorithm(int numWorkers);
     LubyColoringAlgorithm(int numWorkers, unsigned int seed)
         : ColoringStrategy(), _numWorkers(numWorkers), _seed(seed){};
     void colorGraph(std::vector<Vertex>& vertices) override;

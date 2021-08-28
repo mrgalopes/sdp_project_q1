@@ -4,9 +4,11 @@
 #include <random>
 #include "BasicColoringAlgorithm.h"
 
+BasicColoringAlgorithm::BasicColoringAlgorithm()
+    : ColoringStrategy(), seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
+
 void BasicColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     unsigned int i;
-    const unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     // random permutation
     std::vector<unsigned int> r_p(vertices.size());
@@ -33,5 +35,4 @@ void BasicColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
         // give color to the vertex
         vertices.at(id - 1).setColor(i);
     }
-    return;
 }
