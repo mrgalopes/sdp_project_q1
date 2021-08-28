@@ -8,7 +8,6 @@
 class JonesPlassmannAlgorithm : public ColoringStrategy {
 public:
     JonesPlassmannAlgorithm();
-    JonesPlassmannAlgorithm(int numWorkers);
     JonesPlassmannAlgorithm(int numWorkers, unsigned int seed)
         : ColoringStrategy(), _numWorkers(numWorkers), _seed(seed){};
 

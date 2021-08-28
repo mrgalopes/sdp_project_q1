@@ -46,10 +46,6 @@ LubyColoringAlgorithm::LubyColoringAlgorithm()
     : ColoringStrategy(), _numWorkers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
-LubyColoringAlgorithm::LubyColoringAlgorithm(int numWorkers)
-    : ColoringStrategy(), _numWorkers(numWorkers),
-      _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
-
 void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
     std::size_t size_u = vertices.size();
     int lowest_available_color = 1;

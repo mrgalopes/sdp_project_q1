@@ -7,7 +7,6 @@
 class LargestDegreeFirstAlgorithm : public ColoringStrategy {
 public:
     LargestDegreeFirstAlgorithm();
-    LargestDegreeFirstAlgorithm(int numWorkers);
     LargestDegreeFirstAlgorithm(int numWorkers, unsigned int seed)
         : ColoringStrategy(), _numWorkers(numWorkers),
           _seed(seed) {};
