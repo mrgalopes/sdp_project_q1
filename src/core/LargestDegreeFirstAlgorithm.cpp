@@ -3,7 +3,6 @@
 #include <mutex>
 #include <numeric>
 #include <random>
-#include <set>
 #include <thread>
 #include <unordered_set>
 #include "LargestDegreeFirstAlgorithm.h"

@@ -3,8 +3,6 @@
 
 #include "ColoringStrategy.h"
 
-#define DEFAULT_WORKERS 4
-
 class JonesPlassmannAlgorithm : public ColoringStrategy {
 public:
     JonesPlassmannAlgorithm();

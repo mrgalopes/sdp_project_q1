@@ -11,9 +11,9 @@
 namespace {
 std::mutex mtx;
 void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
-              const std::vector<unsigned int>& U,
-              std::shared_ptr<std::vector<unsigned int>> r_p, const std::size_t U_begin,
-              const std::size_t U_end, std::unordered_set<unsigned int>& i_set) {
+              const std::vector<unsigned int>& U, std::shared_ptr<std::vector<unsigned int>> r_p,
+              const std::size_t U_begin, const std::size_t U_end,
+              std::unordered_set<unsigned int>& i_set) {
 
     unsigned int i = 0;
     std::unordered_set<unsigned int>
@@ -52,7 +52,7 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
 
 // uses time-based seed by default
 JonesPlassmannAlgorithm::JonesPlassmannAlgorithm()
-    : ColoringStrategy(), _numWorkers(DEFAULT_WORKERS),
+    : ColoringStrategy(), _numWorkers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
