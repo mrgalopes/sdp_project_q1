@@ -1,6 +1,6 @@
+#include <chrono>
 #include <iostream>
 #include <string>
-#include <chrono>
 
 #ifdef _WIN32
 // windows.h needs to be included before shellapi.h
@@ -48,8 +48,10 @@ static void PrintHelp(const char* argv0) {
                  "-l, --luby            Use the Luby MIS coloring strategy\n"
                  "-j, --jones           Use the Jones Plassmann coloring strategy\n"
                  "-d, --ldf             Use the Lowest Degree First coloring strategy\n"
-                 "-t, --threads=NUMBER  Use NUMBER threads on the coloring strategy, if supported. Default:4\n"
-                 "-s, --seed=NUMBER     Use NUMBER as random seed of the algorithm, if supported. Default: time based pseudo-random\n"
+                 "-t, --threads=NUMBER  Use NUMBER threads on the coloring strategy, if supported. "
+                 "Default:4\n"
+                 "-s, --seed=NUMBER     Use NUMBER as random seed of the algorithm, if supported. "
+                 "Default: time based pseudo-random\n"
                  "-h, --help            Display this help text and exit\n";
 }
 
@@ -75,7 +77,7 @@ int main(int argc, char** argv) {
     ColorStrategy selected = ColorStrategy::Basic;
     int n_threads = 4;
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    char *endarg;
+    char* endarg;
 
 #ifdef _WIN32
     int argc_w;
@@ -89,14 +91,10 @@ int main(int argc, char** argv) {
     std::string filepath;
 
     static struct option long_options[] = {
-        {"basic", no_argument, 0, 'b'},
-        {"luby", no_argument, 0, 'l'},
-        {"jones", no_argument, 0, 'j'},
-        {"ldf", no_argument,0, 'd'},
-        {"help", no_argument, 0, 'h'},
-        {"threads", required_argument, 0, 't'},
-        {"seed", required_argument, 0, 's'},
-        {0, 0, 0, 0},
+        {"basic", no_argument, 0, 'b'},      {"luby", no_argument, 0, 'l'},
+        {"jones", no_argument, 0, 'j'},      {"ldf", no_argument, 0, 'd'},
+        {"help", no_argument, 0, 'h'},       {"threads", required_argument, 0, 't'},
+        {"seed", required_argument, 0, 's'}, {0, 0, 0, 0},
     };
 
     while (optind < argc) {
@@ -124,8 +122,7 @@ int main(int argc, char** argv) {
                 if (tmp > 0) {
                     n_threads = tmp;
                     std::cout << "Using " << n_threads << " threads" << std::endl;
-                }
-                else {
+                } else {
                     std::cout << "Invalid threads number, using default" << std::endl;
                 }
                 break;
