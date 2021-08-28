@@ -33,12 +33,15 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
         }
         if (peak) { // insert in independent set and color it
             i_set_prime.insert(v);
-            std::set<unsigned int> usedColors;
-            for (auto& o : vertices.at(v - 1).getEdgeList()) {
-                usedColors.insert(vertices.at(o - 1).getColor());
+            const std::size_t max_color = edge_list.size(); // you'll never need a higher color
+            std::vector<bool> usedColors(max_color + 1);    // bitset
+            for (auto& o : edge_list) {
+                const unsigned int color = vertices.at(o - 1).getColor();
+                if (color <= max_color)
+                    usedColors[color] = true;
             }
-            for (i = 1; i <= vertices.at(v - 1).getEdgeList().size(); i++) {
-                if (!usedColors.contains(i))
+            for (i = 1; i <= max_color; i++) {
+                if (!usedColors[i])
                     break;
             }
             vertices.at(v - 1).setColor(i);
