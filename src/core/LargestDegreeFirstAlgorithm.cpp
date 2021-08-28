@@ -13,7 +13,7 @@ std::mutex mtx;
 
 void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
                               const std::vector<unsigned int>& U,
-                              const std::shared_ptr<std::vector<unsigned int>>& r_p,
+                              std::shared_ptr<std::vector<unsigned int>> r_p,
                               const std::size_t U_begin, const std::size_t U_end,
                               std::unordered_set<unsigned int>& i_set) {
 
@@ -78,7 +78,7 @@ void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
             auto U_end = ((i + 1) * U.size()) / this->_numWorkers;
 
             workers.emplace_back(LargestDegreeFirstWorker, std::ref(vertices), std::cref(bitset_U),
-                                 std::cref(U), std::cref(r_p), U_begin, U_end, std::ref(i_set));
+                                 std::cref(U), r_p, U_begin, U_end, std::ref(i_set));
         }
         for (auto& t : workers) {
             t.join();

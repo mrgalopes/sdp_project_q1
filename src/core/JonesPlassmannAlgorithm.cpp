@@ -12,7 +12,7 @@ namespace {
 std::mutex mtx;
 void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
               const std::vector<unsigned int>& U,
-              const std::shared_ptr<std::vector<unsigned int>>& r_p, const std::size_t U_begin,
+              std::shared_ptr<std::vector<unsigned int>> r_p, const std::size_t U_begin,
               const std::size_t U_end, std::unordered_set<unsigned int>& i_set) {
 
     unsigned int i = 0;
@@ -79,7 +79,7 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
             auto U_end = ((i + 1) * U.size()) / this->_numWorkers;
 
             workers.emplace_back(JPWorker, std::ref(vertices), std::cref(bitset_U), std::cref(U),
-                                 std::cref(r_p), U_begin, U_end, std::ref(i_set));
+                                 r_p, U_begin, U_end, std::ref(i_set));
         }
         for (auto& t : workers) {
             t.join();
