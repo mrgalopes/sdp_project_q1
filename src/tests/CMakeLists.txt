@@ -8,6 +8,8 @@ add_executable(tests
     load_graph_test.cpp
     largest_degree_first_test.cpp)
 
+find_package(Catch2 3 QUIET)
+
 target_link_libraries(tests PRIVATE core)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 
