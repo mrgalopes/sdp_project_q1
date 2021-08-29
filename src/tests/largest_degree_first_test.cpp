@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "core/Graph.h"
-#include "core/LargestDegreeFirstAlgorithm.h"
+#include "core/coloring_algorithms/LargestDegreeFirstAlgorithm.h"
 #include "test_helpers.h"
 
 TEST_CASE("Largest Degree First coloring test", "[check_largest_degree_first]") {

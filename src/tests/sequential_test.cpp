@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <iostream>
-#include "core/BasicColoringAlgorithm.h"
+#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
 #include "test_helpers.h"
 
