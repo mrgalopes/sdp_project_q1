@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "core/Graph.h"
-#include "core/LubyColoringAlgorithm.h"
+#include "core/coloring_algorithms/LubyColoringAlgorithm.h"
 #include "test_helpers.h"
 
 TEST_CASE("Luby coloring test", "[check_luby]") {

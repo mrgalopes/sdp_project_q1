@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ColoringStrategy.h"
+#include "core/coloring_algorithms/ColoringStrategy.h"
 #include "Graph.h"
 
 void Graph::printVertices() const {

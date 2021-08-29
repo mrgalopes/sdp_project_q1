@@ -3,7 +3,7 @@
 #include <mutex>
 #include <sstream>
 #include <thread>
-#include "Graph.h"
+#include "core/Graph.h"
 #include "IOMethods.h"
 
 namespace {

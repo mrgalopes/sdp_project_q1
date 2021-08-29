@@ -1,6 +1,6 @@
 
 #include <set>
-#include "core/IOMethods.h"
+#include "core/io/IOMethods.h"
 #include "test_helpers.h"
 
 namespace {

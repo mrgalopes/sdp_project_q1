@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "core/Graph.h"
-#include "core/JonesPlassmannAlgorithm.h"
+#include "core/coloring_algorithms/JonesPlassmannAlgorithm.h"
 #include "test_helpers.h"
 
 TEST_CASE("Jones coloring test", "[check_jones]") {

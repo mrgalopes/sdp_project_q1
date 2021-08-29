@@ -2,7 +2,7 @@
 #ifndef COLORING_STRATEGY_H
 #define COLORING_STRATEGY_H
 
-#include "Vertex.h"
+#include "core/Vertex.h"
 
 class ColoringStrategy {
 public:

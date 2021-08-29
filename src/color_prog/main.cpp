@@ -15,12 +15,12 @@
 #include <unistd.h>
 #endif
 
-#include "core/BasicColoringAlgorithm.h"
+#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
-#include "core/IOMethods.h"
-#include "core/JonesPlassmannAlgorithm.h"
-#include "core/LargestDegreeFirstAlgorithm.h"
-#include "core/LubyColoringAlgorithm.h"
+#include "core/io/IOMethods.h"
+#include "core/coloring_algorithms/JonesPlassmannAlgorithm.h"
+#include "core/coloring_algorithms/LargestDegreeFirstAlgorithm.h"
+#include "core/coloring_algorithms/LubyColoringAlgorithm.h"
 
 #ifdef _WIN32
 std::string UTF16ToUTF8(const std::wstring& input) {
