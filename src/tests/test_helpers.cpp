@@ -4,7 +4,8 @@
 #include "test_helpers.h"
 
 namespace {
-std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
+std::string fileName = "../../../dist/graphs/rgg_n_2_15_s0.graph";
+std::string fileName2 = "../../../dist/graphs/large/uniprotenc_100m.scc.gra";
 }
 
 Graph loadDefaultSequential() {
@@ -23,6 +24,15 @@ Graph loadDefaultThreaded() {
     IOM::loadGraphThreaded(graph, graphFile);
     graphFile.close();
     return graph;
+}
+
+Graph loadDIMACS(){
+    Graph graph;
+    std::ifstream graphFile(fileName2);
+    IOM::loadGraphSequentialDIMACS(graph, graphFile);
+    graphFile.close();
+    return graph;
+
 }
 
 bool noAdjacentVertexWithSameColor(Graph& graph) {

@@ -6,8 +6,8 @@
 #include "test_helpers.h"
 
 TEST_CASE("Jones coloring test", "[check_jones]") {
-    Graph graph = loadDefaultThreaded();
-
+    //Graph graph = loadDefaultThreaded();
+    Graph graph = loadDIMACS();
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = JonesPlassmannAlgorithm(8, 1);
     graph.colorize(&coloringAlgorithm);

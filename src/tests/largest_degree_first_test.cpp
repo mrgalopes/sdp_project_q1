@@ -6,7 +6,8 @@
 #include "test_helpers.h"
 
 TEST_CASE("Largest Degree First coloring test", "[check_largest_degree_first]") {
-    Graph graph = loadDefaultThreaded();
+    //Graph graph = loadDefaultThreaded();
+    Graph graph = loadDIMACS();
 
     // TESTING COLORING ALGORITHM
     auto coloringAlgorithm = LargestDegreeFirstAlgorithm(8, 1);

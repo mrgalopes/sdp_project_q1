@@ -40,3 +40,7 @@ unsigned int Vertex::getColor() const {
 void Vertex::setColor(unsigned int color) {
     this->_color = color;
 }
+
+void Vertex::setID(unsigned int ID){
+    this->_ID = ID;
+}

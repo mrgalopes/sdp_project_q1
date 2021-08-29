@@ -14,6 +14,7 @@ public:
     const std::vector<unsigned int>& getEdgeList() const;
     unsigned int getColor() const;
     void setColor(unsigned int color);
+    void setID(unsigned int ID);
 
 private:
     unsigned int _ID;
