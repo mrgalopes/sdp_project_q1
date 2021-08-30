@@ -6,7 +6,7 @@ add_executable(tests
     luby_test.cpp
     jones_test.cpp
     load_graph_test.cpp
-    largest_degree_first_test.cpp)
+    largest_degree_first_test.cpp file_dimacs_test.cpp coloring_dimacs_test.cpp)
 
 find_package(Catch2 3 QUIET)
 
