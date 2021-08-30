@@ -6,7 +6,7 @@
 namespace {
 std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
 std::string fileName2 = "../../../dist/graphs/manual/v1000.gra";
-}
+} // Anonymous namespace
 
 Graph loadDefaultSequential() {
     Graph graph;
@@ -26,7 +26,7 @@ Graph loadDefaultThreaded() {
     return graph;
 }
 
-Graph loadDIMACS(){
+Graph loadDIMACS() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graphFile(fileName2);

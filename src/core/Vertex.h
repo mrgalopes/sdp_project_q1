@@ -15,6 +15,7 @@ public:
     unsigned int getColor() const;
     void setColor(unsigned int color);
     void setID(unsigned int ID);
+
 private:
     unsigned int _ID;
     unsigned int _color;

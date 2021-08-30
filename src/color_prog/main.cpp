@@ -15,12 +15,12 @@
 #include <unistd.h>
 #endif
 
-#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
-#include "core/io/IOMethods.h"
+#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "core/coloring_algorithms/JonesPlassmannAlgorithm.h"
 #include "core/coloring_algorithms/LargestDegreeFirstAlgorithm.h"
 #include "core/coloring_algorithms/LubyColoringAlgorithm.h"
+#include "core/io/IOMethods.h"
 
 #ifdef _WIN32
 std::string UTF16ToUTF8(const std::wstring& input) {
@@ -71,10 +71,13 @@ enum class ColorStrategy {
     LDF,
 };
 
+enum class FileFormat { DIMACS, DIMACS10 };
+
 int main(int argc, char** argv) {
     Graph graph;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
+    FileFormat format;
     int n_threads = 4;
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     char* endarg;
@@ -138,8 +141,24 @@ int main(int argc, char** argv) {
 #else
             filepath = argv[optind];
 #endif
+            std::string extension = filepath.substr(filepath.rfind('.'));
+            if (extension == ".graph") {
+                format = FileFormat::DIMACS10;
+            } else if (extension == ".gra") {
+                format = FileFormat::DIMACS;
+            } else {
+                std::cout << "Unknown file format. Aborting reading." << std::endl;
+                return -1;
+            }
+
             optind++;
         }
+    }
+
+    if (filepath.empty()) {
+        std::cout << "File path not provided. Printing help." << std::endl;
+        PrintHelp(argv[0]);
+        return 0;
     }
 
     // READING FILE AND CONSTRUCTING GRAPH
@@ -148,9 +167,20 @@ int main(int argc, char** argv) {
     std::chrono::steady_clock::time_point time_end;
 
     time_start = std::chrono::steady_clock::now();
+    unsigned int readVertices;
     std::ifstream graphFile(filepath);
-    IOM::loadGraphThreaded(graph, graphFile);
+    switch (format) {
+    case FileFormat::DIMACS10:
+        readVertices = IOM::loadGraphThreaded(graph, graphFile);
+        break;
+    case FileFormat::DIMACS:
+        readVertices = IOM::loadGraphDIMACS(graph, graphFile);
+        break;
+    }
     graphFile.close();
+    if (readVertices == 0)
+        return -1;
+
     time_middle = std::chrono::steady_clock::now();
 
     ColoringStrategy* coloringAlgorithm;
@@ -171,6 +201,7 @@ int main(int argc, char** argv) {
     case ColorStrategy::LDF:
         std::cout << "Coloring method: Largest Degree First" << std::endl;
         coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
+        break;
     }
 
     graph.colorize(coloringAlgorithm);
