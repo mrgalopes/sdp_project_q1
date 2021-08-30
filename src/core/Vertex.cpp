@@ -18,6 +18,10 @@ unsigned int Vertex::getID() const {
     return this->_ID;
 }
 
+void Vertex::setID(unsigned int ID) {
+    this->_ID = ID;
+}
+
 /*
  * Vertex::getEdgeList()
  * this function returns the object edge list (list with all vertexes connected)

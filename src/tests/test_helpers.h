@@ -6,6 +6,7 @@
 
 Graph loadDefaultSequential();
 Graph loadDefaultThreaded();
+Graph loadDIMACS();
 
 bool noAdjacentVertexWithSameColor(Graph& graph);
 int noUncoloredVertex(Graph& graph);

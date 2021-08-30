@@ -5,6 +5,7 @@
 
 namespace {
 std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
+std::string fileName2 = "../../../dist/graphs/manual/v1000.gra";
 }
 
 Graph loadDefaultSequential() {
@@ -21,6 +22,15 @@ Graph loadDefaultThreaded() {
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graphFile(fileName);
     IOM::loadGraphThreaded(graph, graphFile);
+    graphFile.close();
+    return graph;
+}
+
+Graph loadDIMACS(){
+    Graph graph;
+    // READING FILE AND CONSTRUCTING GRAPH
+    std::ifstream graphFile(fileName2);
+    IOM::loadGraphDIMACS(graph, graphFile);
     graphFile.close();
     return graph;
 }
