@@ -25,16 +25,17 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
         const auto& edge_list = vertices.at(v - 1).getEdgeList();
         const auto numberEdges = edge_list.size();
         for (auto vx : edge_list) {
-            if (bitset_U[vx - 1] && vertices.at(vx - 1).getEdgeList().size() > numberEdges) {
-                peak = false;
-                break;
-            }
-            if (bitset_U[vx - 1] &&
-                vertices.at(vx - 1).getEdgeList().size() ==
-                    numberEdges) { // if two vertices have the same number of edges
-                if (r_p->at(vx - 1) > r_p->at(v - 1)) { // higher weight vertex is the peak
+            if (bitset_U[vx - 1]) {
+                const auto numberEdgesVx = vertices.at(vx - 1).getEdgeList().size();
+                if (numberEdgesVx > numberEdges) {
                     peak = false;
                     break;
+                }
+                if (numberEdgesVx == numberEdges) {
+                    if (r_p->at(vx - 1) > r_p->at(v - 1)) { // higher weight vertex is the peak
+                        peak = false;
+                        break;
+                    }
                 }
             }
         }
