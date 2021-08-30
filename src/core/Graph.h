@@ -10,8 +10,8 @@ class ColoringStrategy;
 class Graph {
 public:
     std::vector<Vertex> vertices;
-    unsigned int numVertices;
-    unsigned int numEdges;
+    unsigned int numVertices = 0;
+    unsigned int numEdges = 0;
 
     // methods
     void addVertex(Vertex&& vertex);

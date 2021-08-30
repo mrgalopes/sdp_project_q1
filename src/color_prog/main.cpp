@@ -167,16 +167,20 @@ int main(int argc, char** argv) {
     std::chrono::steady_clock::time_point time_end;
 
     time_start = std::chrono::steady_clock::now();
+    unsigned int readVertices;
     std::ifstream graphFile(filepath);
     switch (format) {
     case FileFormat::DIMACS10:
-        IOM::loadGraphThreaded(graph, graphFile);
+        readVertices = IOM::loadGraphThreaded(graph, graphFile);
         break;
     case FileFormat::DIMACS:
-        IOM::loadGraphDIMACS(graph, graphFile);
+        readVertices = IOM::loadGraphDIMACS(graph, graphFile);
         break;
     }
     graphFile.close();
+    if (readVertices == 0)
+        return -1;
+
     time_middle = std::chrono::steady_clock::now();
 
     ColoringStrategy* coloringAlgorithm;
