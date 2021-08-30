@@ -4,8 +4,8 @@
 #include "test_helpers.h"
 
 namespace {
-std::string fileName = "../../../dist/graphs/rgg_n_2_15_s0.graph";
-std::string fileName2 = "../../../dist/graphs/large/uniprotenc_100m.scc.gra";
+std::string fileName = "../../../dist/graphs/rgg_n_2_22_s0.graph";
+std::string fileName2 = "../../../dist/graphs/manual/v1000.gra";
 }
 
 Graph loadDefaultSequential() {
