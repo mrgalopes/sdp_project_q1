@@ -1,6 +1,6 @@
 #include <iostream>
-#include "core/coloring_algorithms/ColoringStrategy.h"
 #include "Graph.h"
+#include "core/coloring_algorithms/ColoringStrategy.h"
 
 void Graph::printVertices() const {
     for (auto& vertex : vertices) {

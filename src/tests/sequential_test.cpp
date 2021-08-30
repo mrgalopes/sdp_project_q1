@@ -1,8 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <iostream>
-#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "core/Graph.h"
+#include "core/coloring_algorithms/BasicColoringAlgorithm.h"
 #include "test_helpers.h"
 
 TEST_CASE("Sequential coloring test", "[check_sequential]") {
