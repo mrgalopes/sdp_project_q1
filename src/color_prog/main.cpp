@@ -71,10 +71,13 @@ enum class ColorStrategy {
     LDF,
 };
 
+enum class FileFormat { DIMACS, DIMACS10 };
+
 int main(int argc, char** argv) {
     Graph graph;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
+    FileFormat format;
     int n_threads = 4;
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     char* endarg;
@@ -138,8 +141,24 @@ int main(int argc, char** argv) {
 #else
             filepath = argv[optind];
 #endif
+            std::string extension = filepath.substr(filepath.rfind('.'));
+            if (extension == ".graph") {
+                format = FileFormat::DIMACS10;
+            } else if (extension == ".gra") {
+                format = FileFormat::DIMACS;
+            } else {
+                std::cout << "Unknown file format. Aborting reading." << std::endl;
+                return -1;
+            }
+
             optind++;
         }
+    }
+
+    if (filepath.empty()) {
+        std::cout << "File path not provided. Printing help." << std::endl;
+        PrintHelp(argv[0]);
+        return 0;
     }
 
     // READING FILE AND CONSTRUCTING GRAPH
@@ -149,7 +168,14 @@ int main(int argc, char** argv) {
 
     time_start = std::chrono::steady_clock::now();
     std::ifstream graphFile(filepath);
-    IOM::loadGraphThreaded(graph, graphFile);
+    switch (format) {
+    case FileFormat::DIMACS10:
+        IOM::loadGraphThreaded(graph, graphFile);
+        break;
+    case FileFormat::DIMACS:
+        IOM::loadGraphDIMACS(graph, graphFile);
+        break;
+    }
     graphFile.close();
     time_middle = std::chrono::steady_clock::now();
 
@@ -171,6 +197,7 @@ int main(int argc, char** argv) {
     case ColorStrategy::LDF:
         std::cout << "Coloring method: Largest Degree First" << std::endl;
         coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
+        break;
     }
 
     graph.colorize(coloringAlgorithm);
