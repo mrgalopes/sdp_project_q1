@@ -29,6 +29,12 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
                 peak = false;
                 break;
             }
+            if (bitset_U[vx - 1] && vertices.at(vx - 1).getEdgeList().size() == numberEdges){ // if two vertices have the same number of edges
+                if (r_p->at(vx-1) > r_p->at(v-1)){ // higher weight vertex is the peak
+                    peak = false;
+                    break;
+                }
+            }
         }
         if (peak) { // insert in independent set and color it
             i_set_prime.insert(v);
