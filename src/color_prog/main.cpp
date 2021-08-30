@@ -209,11 +209,11 @@ int main(int argc, char** argv) {
     time_end = std::chrono::steady_clock::now();
     std::cout
         << "Elapsed time (reading): "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(time_middle - time_start).count()
+        << std::chrono::duration_cast<std::chrono::microseconds>(time_middle - time_start).count()/(float)1000
         << "[ms]" << std::endl;
     std::cout
         << "Elapsed time (coloring): "
-        << std::chrono::duration_cast<std::chrono::milliseconds>(time_end - time_middle).count()
+        << std::chrono::duration_cast<std::chrono::microseconds>(time_end - time_middle).count()/float(1000)
         << "[ms]" << std::endl;
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
