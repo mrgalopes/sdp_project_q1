@@ -11,8 +11,7 @@ Project for System and Device Programming course at Politecnico di Torino
 
 ## Platform compatibility
 The program has been built and tested on Windows and Linux environments.
-Compilers used were MSVC 2019, GCC 9.3.0 and Clang.
-No testing has been done on MacOS environments.
+Compilers used were MSVC 2019, GCC 9.3.0 and Clang 12.0.1 .
 
 ## Build instructions
 ### Windows
