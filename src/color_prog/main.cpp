@@ -21,6 +21,7 @@
 #include "core/coloring_algorithms/LargestDegreeFirstAlgorithm.h"
 #include "core/coloring_algorithms/LubyColoringAlgorithm.h"
 #include "core/io/IOMethods.h"
+#include "core/io/ColorExporter.h"
 
 #ifdef _WIN32
 std::string UTF16ToUTF8(const std::wstring& input) {
@@ -52,6 +53,8 @@ static void PrintHelp(const char* argv0) {
                  "Default:4\n"
                  "-s, --seed=NUMBER     Use NUMBER as random seed of the algorithm, if supported. "
                  "Default: time based pseudo-random\n"
+                 "-o, --output=FILENAME Use FILENAME as output for the colors. "
+                 "Default: colors not exported\n"
                  "-h, --help            Display this help text and exit\n";
 }
 
@@ -80,7 +83,8 @@ int main(int argc, char** argv) {
     FileFormat format;
     int n_threads = 4;
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    char* endarg;
+    char* output_file = nullptr;
+    char* endarg = nullptr;
 
 #ifdef _WIN32
     int argc_w;
@@ -97,11 +101,12 @@ int main(int argc, char** argv) {
         {"basic", no_argument, 0, 'b'},      {"luby", no_argument, 0, 'l'},
         {"jones", no_argument, 0, 'j'},      {"ldf", no_argument, 0, 'd'},
         {"help", no_argument, 0, 'h'},       {"threads", required_argument, 0, 't'},
-        {"seed", required_argument, 0, 's'}, {0, 0, 0, 0},
+        {"seed", required_argument, 0, 's'}, {"output", required_argument, 0, 'o'},
+        {0, 0, 0, 0},
     };
 
     while (optind < argc) {
-        int arg = getopt_long(argc, argv, "bljdht:s:", long_options, &option_index);
+        int arg = getopt_long(argc, argv, "bljdht:s:o:", long_options, &option_index);
         int tmp;
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
@@ -133,6 +138,9 @@ int main(int argc, char** argv) {
             case 's':
                 seed = strtoul(optarg, &endarg, 0);
                 std::cout << "Using " << seed << " as seed" << std::endl;
+                break;
+            case 'o':
+                output_file = optarg;
                 break;
             }
         } else {
@@ -219,6 +227,12 @@ int main(int argc, char** argv) {
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "Number of colors: " << maxColor(graph) << std::endl;
     std::cout << "\n -- Coloring finished --" << std::endl;
+
+    if (output_file) {
+        std::cout << "Exporting colors to: " << output_file << std::endl;
+        exportColors(output_file, graph);
+    }
+
     delete coloringAlgorithm;
     return 0;
 }
