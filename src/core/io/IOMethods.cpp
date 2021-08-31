@@ -42,9 +42,10 @@ std::vector<std::string> tokenizeString(std::string& entireLine) {
 }
 
 std::ifstream& readLine(std::ifstream& graphFile, std::string& entireLine) {
-    // reads an entire line, if the line has % jumps to the next line
-    while (getline(graphFile, entireLine) && entireLine.find('%') != std::string::npos)
+    // reads an entire line, if line starts with '%', jumps to next line
+    while (getline(graphFile, entireLine) && entireLine.find('%') == 0)
         ;
+
     return graphFile;
 }
 
