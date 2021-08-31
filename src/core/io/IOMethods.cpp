@@ -43,15 +43,9 @@ std::vector<std::string> tokenizeString(std::string& entireLine) {
 
 std::ifstream& readLine(std::ifstream& graphFile, std::string& entireLine) {
     // reads an entire line from file
-    getline(graphFile, entireLine);
+    while (getline(graphFile, entireLine) && entireLine.find('%') == 0)
+        ;
 
-    // '%' onwards means a comment, so erase it
-    if (!entireLine.empty()) {
-        auto pos = entireLine.find('%');
-        if (pos != std::string::npos) {
-            entireLine.erase(pos);
-        }
-    }
     return graphFile;
 }
 
