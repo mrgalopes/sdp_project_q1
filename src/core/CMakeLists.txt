@@ -11,7 +11,12 @@ add_library(core STATIC
         io/IOMethods.h
         coloring_algorithms/LubyColoringAlgorithm.cpp
         coloring_algorithms/LubyColoringAlgorithm.h
-        coloring_algorithms/JonesPlassmannAlgorithm.cpp coloring_algorithms/JonesPlassmannAlgorithm.h coloring_algorithms/LargestDegreeFirstAlgorithm.cpp coloring_algorithms/LargestDegreeFirstAlgorithm.h)
+        coloring_algorithms/JonesPlassmannAlgorithm.cpp
+        coloring_algorithms/JonesPlassmannAlgorithm.h
+        coloring_algorithms/LargestDegreeFirstAlgorithm.cpp
+        coloring_algorithms/LargestDegreeFirstAlgorithm.h
+        io/ColorExporter.cpp
+        io/ColorExporter.h)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
