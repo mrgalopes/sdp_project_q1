@@ -10,9 +10,9 @@ Project for System and Device Programming course at Politecnico di Torino
 `tests` runs automated tests against the included example graphs.
 
 ## Platform compatibility
-The program has been built and tested on Windows and Linux environments.
-Compilers used were MSVC 2019, GCC 9.3.0 and Clang.
-No testing has been done on MacOS environments.
+The program has been built and tested on Windows, Linux and MacOS environments.
+Compilers used were MSVC 2019, GCC 9.3.0 and Clang 12.0.1 .
+Building and testing on MacOS has been done solely based on CI.
 
 ## Build instructions
 ### Windows
