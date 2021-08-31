@@ -40,3 +40,12 @@ Use the `-DCMAKE_CXX_COMPILER` and `-DCMAKE_C_COMPILER` options to define the us
 - Gabriel Lopes Rodrigues (s287315)
 - Vinícius Massaki Benevides Kanaoka (s287000)
 - Vitor Amaral Kiguchi (s287183)
+
+## Licenses
+This software uses the following open source libraries:
+
+### Catch
+`Boost Software License - Version 1.0`
+
+### getopt
+`LGPL`
