@@ -8,11 +8,11 @@ TEST_CASE("The resulting graph should have the correct number of vertices", "[fi
 
     REQUIRE(graph.vertices.size() == graph.numVertices);
 
-    unsigned int sumEdges = 0;
+    unsigned int sum_edges = 0;
 
     for (auto& t : graph.vertices) {
-        sumEdges += t.getEdgeList().size();
+        sum_edges += t.getEdgeList().size();
     }
 
-    REQUIRE(graph.numEdges == sumEdges / 2);
+    REQUIRE(graph.numEdges == sum_edges / 2);
 }

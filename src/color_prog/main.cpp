@@ -42,7 +42,7 @@ std::string UTF16ToUTF8(const std::wstring& input) {
 }
 #endif
 
-static void PrintHelp(const char* argv0) {
+static void printHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
                  "-b, --basic           Use a sequential greedy coloring strategy\n"
@@ -123,7 +123,7 @@ int main(int argc, char** argv) {
                 selected = ColorStrategy::LDF;
                 break;
             case 'h':
-                PrintHelp(argv[0]);
+                printHelp(argv[0]);
                 return 0;
             case 't':
                 tmp = strtoul(optarg, &endarg, 0);
@@ -165,7 +165,7 @@ int main(int argc, char** argv) {
 
     if (filepath.empty()) {
         std::cout << "File path not provided. Printing help." << std::endl;
-        PrintHelp(argv[0]);
+        printHelp(argv[0]);
         return 0;
     }
 
@@ -175,44 +175,44 @@ int main(int argc, char** argv) {
     std::chrono::steady_clock::time_point time_end;
 
     time_start = std::chrono::steady_clock::now();
-    unsigned int readVertices;
-    std::ifstream graphFile(filepath);
+    unsigned int read_vertices;
+    std::ifstream graph_file(filepath);
     switch (format) {
     case FileFormat::DIMACS10:
-        readVertices = IOM::loadGraphThreaded(graph, graphFile);
+        read_vertices = IOM::loadGraphThreaded(graph, graph_file);
         break;
     case FileFormat::DIMACS:
-        readVertices = IOM::loadGraphDIMACS(graph, graphFile);
+        read_vertices = IOM::loadGraphDIMACS(graph, graph_file);
         break;
     }
-    graphFile.close();
-    if (readVertices == 0)
+    graph_file.close();
+    if (read_vertices == 0)
         return -1;
 
     time_middle = std::chrono::steady_clock::now();
 
-    ColoringStrategy* coloringAlgorithm;
+    ColoringStrategy* coloring_algorithm;
     // TESTING COLORING ALGORITHM
     switch (selected) {
     case ColorStrategy::Basic:
-        coloringAlgorithm = new BasicColoringAlgorithm(seed);
+        coloring_algorithm = new BasicColoringAlgorithm(seed);
         std::cout << "Coloring method: Sequential" << std::endl;
         break;
     case ColorStrategy::Luby:
         std::cout << "Coloring method: Luby" << std::endl;
-        coloringAlgorithm = new LubyColoringAlgorithm(n_threads, seed);
+        coloring_algorithm = new LubyColoringAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::Jones:
         std::cout << "Coloring method: Jones" << std::endl;
-        coloringAlgorithm = new JonesPlassmannAlgorithm(n_threads, seed);
+        coloring_algorithm = new JonesPlassmannAlgorithm(n_threads, seed);
         break;
     case ColorStrategy::LDF:
         std::cout << "Coloring method: Largest Degree First" << std::endl;
-        coloringAlgorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
+        coloring_algorithm = new LargestDegreeFirstAlgorithm(n_threads, seed);
         break;
     }
 
-    graph.colorize(coloringAlgorithm);
+    graph.colorize(coloring_algorithm);
 
     time_end = std::chrono::steady_clock::now();
     std::cout
@@ -233,6 +233,6 @@ int main(int argc, char** argv) {
         exportColors(output_file, graph);
     }
 
-    delete coloringAlgorithm;
+    delete coloring_algorithm;
     return 0;
 }

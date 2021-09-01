@@ -9,8 +9,8 @@ TEST_CASE("Largest Degree First coloring test", "[check_largest_degree_first]") 
     Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
-    auto coloringAlgorithm = LargestDegreeFirstAlgorithm(8, 1);
-    graph.colorize(&coloringAlgorithm);
+    auto coloring_algorithm = LargestDegreeFirstAlgorithm(8, 1);
+    graph.colorize(&coloring_algorithm);
 
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);

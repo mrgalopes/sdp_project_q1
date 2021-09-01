@@ -9,8 +9,8 @@ TEST_CASE("Luby coloring test", "[check_luby]") {
     Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
-    auto coloringAlgorithm = LubyColoringAlgorithm(8, 1);
-    graph.colorize(&coloringAlgorithm);
+    auto coloring_algorithm = LubyColoringAlgorithm(8, 1);
+    graph.colorize(&coloring_algorithm);
 
     std::cout << "Luby - Number of colors used: " << maxColor(graph) << std::endl;
     REQUIRE(noAdjacentVertexWithSameColor(graph));

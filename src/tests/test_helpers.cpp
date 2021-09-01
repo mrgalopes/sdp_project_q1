@@ -4,44 +4,44 @@
 #include "test_helpers.h"
 
 namespace {
-std::string fileName = "../../dist/graphs/rgg_n_2_15_s0.graph";
-std::string fileName2 = "../../../dist/graphs/manual/v1000.gra";
+std::string file_name_DIMACS10 = "../../dist/graphs/rgg_n_2_15_s0.graph";
+std::string file_name_DIMACS = "../../../dist/graphs/manual/v1000.gra";
 } // Anonymous namespace
 
 Graph loadDefaultSequential() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile(fileName);
-    IOM::loadGraphSequential(graph, graphFile);
-    graphFile.close();
+    std::ifstream graph_file(file_name_DIMACS10);
+    IOM::loadGraphSequential(graph, graph_file);
+    graph_file.close();
     return graph;
 }
 
 Graph loadDefaultThreaded() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile(fileName);
-    IOM::loadGraphThreaded(graph, graphFile);
-    graphFile.close();
+    std::ifstream graph_file(file_name_DIMACS10);
+    IOM::loadGraphThreaded(graph, graph_file);
+    graph_file.close();
     return graph;
 }
 
 Graph loadDIMACS() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
-    std::ifstream graphFile(fileName2);
-    IOM::loadGraphDIMACS(graph, graphFile);
-    graphFile.close();
+    std::ifstream graph_file(file_name_DIMACS);
+    IOM::loadGraphDIMACS(graph, graph_file);
+    graph_file.close();
     return graph;
 }
 
 bool noAdjacentVertexWithSameColor(Graph& graph) {
-    for (auto& v : graph.vertices) {
-        unsigned int color = v.getColor();
-        for (auto& edgeID : v.getEdgeList()) {
-            if (edgeID == v.getID())
+    for (auto& vertex : graph.vertices) {
+        unsigned int color = vertex.getColor();
+        for (auto& edge_ID : vertex.getEdgeList()) {
+            if (edge_ID == vertex.getID())
                 continue;
-            if (color == graph.vertices.at(edgeID - 1).getColor()) {
+            if (color == graph.vertices.at(edge_ID - 1).getColor()) {
                 return false;
             }
         }
@@ -50,22 +50,22 @@ bool noAdjacentVertexWithSameColor(Graph& graph) {
 }
 
 int noUncoloredVertex(Graph& graph) {
-    int numUncolored = 0;
-    std::set<int> uncoloredVertices;
+    int num_uncolored = 0;
+    std::set<unsigned int> uncolored_vertices;
     for (auto& v : graph.vertices) {
         if (v.getColor() == 0) {
-            numUncolored++;
-            uncoloredVertices.insert(v.getID());
+            num_uncolored++;
+            uncolored_vertices.insert(v.getID());
         }
     }
-    return numUncolored;
+    return num_uncolored;
 }
 
 unsigned int maxColor(Graph& graph) {
-    unsigned int maxColor = 0;
+    unsigned int max_color = 0;
     for (auto& v : graph.vertices) {
-        if (v.getColor() > maxColor)
-            maxColor = v.getColor();
+        if (v.getColor() > max_color)
+            max_color = v.getColor();
     }
-    return maxColor;
+    return max_color;
 }

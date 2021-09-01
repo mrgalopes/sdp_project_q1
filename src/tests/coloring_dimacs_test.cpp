@@ -12,8 +12,8 @@ TEST_CASE("Run a coloring method using DIMACS file", "[dimacs_coloring]") {
     Graph graph = loadDIMACS();
 
     // TESTING COLORING ALGORITHM
-    auto coloringAlgorithm = BasicColoringAlgorithm();
-    graph.colorize(&coloringAlgorithm);
+    auto coloring_algorithm = BasicColoringAlgorithm();
+    graph.colorize(&coloring_algorithm);
 
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);

@@ -9,8 +9,8 @@ TEST_CASE("Jones coloring test", "[check_jones]") {
     Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
-    auto coloringAlgorithm = JonesPlassmannAlgorithm(8, 1);
-    graph.colorize(&coloringAlgorithm);
+    auto coloring_algorithm = JonesPlassmannAlgorithm(8, 1);
+    graph.colorize(&coloring_algorithm);
 
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);

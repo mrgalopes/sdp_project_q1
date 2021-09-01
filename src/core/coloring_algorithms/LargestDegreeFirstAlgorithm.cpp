@@ -23,15 +23,15 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
         const auto v = U[j];
         bool peak = true;
         const auto& edge_list = vertices.at(v - 1).getEdgeList();
-        const auto numberEdges = edge_list.size();
+        const auto number_edges = edge_list.size();
         for (auto vx : edge_list) {
             if (bitset_U[vx - 1]) {
-                const auto numberEdgesVx = vertices.at(vx - 1).getEdgeList().size();
-                if (numberEdgesVx > numberEdges) {
+                const auto number_edges_vx = vertices.at(vx - 1).getEdgeList().size();
+                if (number_edges_vx > number_edges) {
                     peak = false;
                     break;
                 }
-                if (numberEdgesVx == numberEdges) {
+                if (number_edges_vx == number_edges) {
                     if (r_p->at(vx - 1) > r_p->at(v - 1)) { // higher weight vertex is the peak
                         peak = false;
                         break;
@@ -42,14 +42,14 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
         if (peak) { // insert in independent set and color it
             i_set_prime.insert(v);
             const std::size_t max_color = edge_list.size(); // you'll never need a higher color
-            std::vector<bool> usedColors(max_color + 1);    // bitset
+            std::vector<bool> used_colors(max_color + 1);    // bitset
             for (auto& o : edge_list) {
                 const unsigned int color = vertices.at(o - 1).getColor();
                 if (color <= max_color)
-                    usedColors[color] = true;
+                    used_colors[color] = true;
             }
             for (i = 1; i <= max_color; i++) {
-                if (!usedColors[i])
+                if (!used_colors[i])
                     break;
             }
             vertices.at(v - 1).setColor(i);
@@ -62,7 +62,7 @@ void LargestDegreeFirstWorker(std::vector<Vertex>& vertices, const std::vector<b
 } // namespace
 
 LargestDegreeFirstAlgorithm::LargestDegreeFirstAlgorithm()
-    : ColoringStrategy(), _numWorkers(default_workers),
+    : ColoringStrategy(), _num_workers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
@@ -84,9 +84,9 @@ void LargestDegreeFirstAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
 
         // choose independent set and color it
         std::vector<std::thread> workers;
-        for (int i = 0; i < this->_numWorkers; i++) {
-            auto U_begin = (i * U.size()) / this->_numWorkers;
-            auto U_end = ((i + 1) * U.size()) / this->_numWorkers;
+        for (int i = 0; i < this->_num_workers; i++) {
+            auto U_begin = (i * U.size()) / this->_num_workers;
+            auto U_end = ((i + 1) * U.size()) / this->_num_workers;
 
             workers.emplace_back(LargestDegreeFirstWorker, std::ref(vertices), std::cref(bitset_U),
                                  std::cref(U), r_p, U_begin, U_end, std::ref(i_set));

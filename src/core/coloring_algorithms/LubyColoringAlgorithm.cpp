@@ -43,7 +43,7 @@ void independentSetWorker(const std::vector<Vertex>& vertices, const std::unorde
 
 // uses time-based seed by default
 LubyColoringAlgorithm::LubyColoringAlgorithm()
-    : ColoringStrategy(), _numWorkers(default_workers),
+    : ColoringStrategy(), _num_workers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
@@ -68,11 +68,11 @@ void LubyColoringAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
 
             // choose independent set
             std::vector<std::thread> workers;
-            for (int i = 0; i < this->_numWorkers; i++) {
+            for (int i = 0; i < this->_num_workers; i++) {
                 auto A_begin = A.cbegin();
-                std::advance(A_begin, (i * A.size() / this->_numWorkers));
+                std::advance(A_begin, (i * A.size() / this->_num_workers));
                 auto A_end = A.cbegin();
-                std::advance(A_end, ((i + 1) * A.size() / this->_numWorkers));
+                std::advance(A_end, ((i + 1) * A.size() / this->_num_workers));
 
                 workers.emplace_back(independentSetWorker, std::ref(vertices), std::ref(A), r_p,
                                      A_begin, A_end, std::ref(i_set), std::ref(x_set));
