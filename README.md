@@ -3,7 +3,7 @@ Project for System and Device Programming course at Politecnico di Torino
 
 ## Requirements
 - A compiler with C++20 support
-- CMake 3.20 or newer
+- CMake 3.8 or newer
 
 ## Project structure
 `color_prog` is the main program, counting with CLI options. Pass `-h` or `--help` for help.
