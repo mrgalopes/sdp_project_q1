@@ -31,14 +31,14 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
         if (peak) { // insert in independent set and color it
             i_set_prime.insert(v);
             const std::size_t max_color = edge_list.size(); // you'll never need a higher color
-            std::vector<bool> usedColors(max_color + 1);    // bitset
+            std::vector<bool> used_colors(max_color + 1);    // bitset
             for (auto& o : edge_list) {
                 const unsigned int color = vertices.at(o - 1).getColor();
                 if (color <= max_color)
-                    usedColors[color] = true;
+                    used_colors[color] = true;
             }
             for (i = 1; i <= max_color; i++) {
-                if (!usedColors[i])
+                if (!used_colors[i])
                     break;
             }
             vertices.at(v - 1).setColor(i);
@@ -52,7 +52,7 @@ void JPWorker(std::vector<Vertex>& vertices, const std::vector<bool>& bitset_U,
 
 // uses time-based seed by default
 JonesPlassmannAlgorithm::JonesPlassmannAlgorithm()
-    : ColoringStrategy(), _numWorkers(default_workers),
+    : ColoringStrategy(), _num_workers(default_workers),
       _seed(std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
@@ -74,9 +74,9 @@ void JonesPlassmannAlgorithm::colorGraph(std::vector<Vertex>& vertices) {
 
         // choose independent set and color it
         std::vector<std::thread> workers;
-        for (int i = 0; i < this->_numWorkers; i++) {
-            auto U_begin = (i * U.size()) / this->_numWorkers;
-            auto U_end = ((i + 1) * U.size()) / this->_numWorkers;
+        for (int i = 0; i < this->_num_workers; i++) {
+            auto U_begin = (i * U.size()) / this->_num_workers;
+            auto U_end = ((i + 1) * U.size()) / this->_num_workers;
 
             workers.emplace_back(JPWorker, std::ref(vertices), std::cref(bitset_U), std::cref(U),
                                  r_p, U_begin, U_end, std::ref(i_set));

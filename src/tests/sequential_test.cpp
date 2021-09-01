@@ -9,8 +9,8 @@ TEST_CASE("Sequential coloring test", "[check_sequential]") {
     Graph graph = loadDefaultThreaded();
 
     // TESTING COLORING ALGORITHM
-    auto coloringAlgorithm = BasicColoringAlgorithm();
-    graph.colorize(&coloringAlgorithm);
+    auto coloring_algorithm = BasicColoringAlgorithm();
+    graph.colorize(&coloring_algorithm);
 
     REQUIRE(noAdjacentVertexWithSameColor(graph));
     REQUIRE(noUncoloredVertex(graph) == 0);

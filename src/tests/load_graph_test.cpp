@@ -5,6 +5,6 @@
 
 TEST_CASE("The resulting graphs should be the same", "[load_graph_test]") {
     Graph graph = loadDefaultSequential();
-    Graph graph2 = loadDefaultThreaded();
-    REQUIRE(graph == graph2);
+    Graph graph_2 = loadDefaultThreaded();
+    REQUIRE(graph == graph_2);
 }
