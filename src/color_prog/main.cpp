@@ -179,7 +179,7 @@ int main(int argc, char** argv) {
     std::ifstream graph_file(filepath);
     switch (format) {
     case FileFormat::DIMACS10:
-        read_vertices = IOM::loadGraphThreaded(graph, graph_file);
+        read_vertices = IOM::loadGraphDIMACS10Threaded(graph, graph_file);
         break;
     case FileFormat::DIMACS:
         read_vertices = IOM::loadGraphDIMACS(graph, graph_file);

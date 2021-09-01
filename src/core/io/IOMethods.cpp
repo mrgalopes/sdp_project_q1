@@ -48,7 +48,7 @@ std::ifstream& readLine(std::ifstream& graph_file, std::string& entire_line) {
     return graph_file;
 }
 
-unsigned int loadGraphSequential(Graph& graph, std::ifstream& graph_file) {
+unsigned int loadGraphDIMACS10Sequential(Graph& graph, std::ifstream& graph_file) {
     unsigned int n = 0;
     std::vector<std::string> split_line;
     std::string entire_line;
@@ -73,7 +73,7 @@ unsigned int loadGraphSequential(Graph& graph, std::ifstream& graph_file) {
     return n;
 }
 
-unsigned int loadGraphThreaded(Graph& graph, std::ifstream& graph_file) {
+unsigned int loadGraphDIMACS10Threaded(Graph& graph, std::ifstream& graph_file) {
     unsigned int n = 0;
     std::vector<std::string> split_line;
     std::string entire_line;
