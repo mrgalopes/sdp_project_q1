@@ -12,7 +12,7 @@ Graph loadDefaultSequential() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graph_file(file_name_DIMACS10);
-    IOM::loadGraphSequential(graph, graph_file);
+    IOM::loadGraphDIMACS10Sequential(graph, graph_file);
     graph_file.close();
     return graph;
 }
@@ -21,7 +21,7 @@ Graph loadDefaultThreaded() {
     Graph graph;
     // READING FILE AND CONSTRUCTING GRAPH
     std::ifstream graph_file(file_name_DIMACS10);
-    IOM::loadGraphThreaded(graph, graph_file);
+    IOM::loadGraphDIMACS10Threaded(graph, graph_file);
     graph_file.close();
     return graph;
 }
