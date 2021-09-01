@@ -40,7 +40,8 @@ Use the `-DCMAKE_CXX_COMPILER` and `-DCMAKE_C_COMPILER` options to define the us
 
 ## Run Instructions
 
-Given the binary is in the current directory (e.g. after build with previous instruction `cd build/bin/`), to run the program:
+Given the binary is in the current directory (e.g. after build with previous Linux build instruction, 
+do `cd build/bin/`), to run the program:
 
 ```sh
 ./color_prog path/to/graph/my_graph.gra # or my_other_graph.graph
