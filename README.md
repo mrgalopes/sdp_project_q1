@@ -22,6 +22,8 @@ Building and testing on MacOS has been done solely based on CI.
 - Compile the project.
 
 ### Linux
+From the base directory (`sdp_project_q1/`), choose one of the following:
+
 - If using Make, run:
 ```
 mkdir build
