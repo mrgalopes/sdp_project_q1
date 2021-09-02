@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.8)
 project(sdp_project_q1)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -9,6 +9,7 @@ configure_file(${PROJECT_SOURCE_DIR}/dist/graphs/rgg_n_2_15_s0.graph
                ${PROJECT_BINARY_DIR}/dist/graphs/rgg_n_2_15_s0.graph
                COPYONLY)
 
+option(ENABLE_TESTS "Build tests" OFF)
 
 set(CLANG_FORMAT_POSTFIX "-10")
 find_program(CLANG_FORMAT

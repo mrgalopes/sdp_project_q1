@@ -22,4 +22,6 @@ endif()
 
 add_subdirectory(color_prog)
 add_subdirectory(core)
-add_subdirectory(tests)
+if (ENABLE_TESTS)
+    add_subdirectory(tests)
+endif()
