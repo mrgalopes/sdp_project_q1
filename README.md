@@ -7,7 +7,8 @@ Project for System and Device Programming course at Politecnico di Torino
 
 ## Project structure
 `color_prog` is the main program, counting with CLI options. Pass `-h` or `--help` for help.
-`tests` runs automated tests against the included example graphs.
+
+When option for testing is enabled, `tests` runs automated tests against the included example graphs.
 
 ## Platform compatibility
 The program has been built and tested on Windows, Linux and MacOS environments.
@@ -37,6 +38,29 @@ cmake -B ./build
 cmake --build ./build --config Release
 ```
 Use the `-DCMAKE_CXX_COMPILER` and `-DCMAKE_C_COMPILER` options to define the used compiler.
+
+## Build with Tests
+Needs Catch2 v3.
+
+Pass the flag `-DENABLE_TESTS=ON` to cmake to enable building with tests. After build, there will be a `tests` 
+executable along with `color_prog`. Running this executable executes all tests defined in the `src/tests/` folder.
+
+### Windows
+- enable the `ENABLE_TESTS` flag in the cmake-gui
+
+### Linux 
+- If using Make, run:
+```
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
+make
+```
+- Alternatively, `cmake -B ./build -DENABLE_TESTS=ON`
+```
+cmake -B ./build -DENABLE_TESTS=ON
+cmake --build ./build --config Release
+```
 
 ## Run Instructions
 
@@ -117,6 +141,20 @@ pseudo-random number.
 ./color_prog --help
 ```
 
+## Run Tests
+
+Given that the project was built with Tests, to run them simply execute the `tests` binary, which should be in the
+same folder as `color_prog`.
+
+## Troubleshoot
+
+### Catch2 not found
+
+Try:
+```sh
+git submodule update --init
+```
+And then try to build again.
 
 ## Authors
 - Gabriel Lopes Rodrigues (s287315)
