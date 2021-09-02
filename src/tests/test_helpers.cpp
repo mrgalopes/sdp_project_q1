@@ -5,7 +5,7 @@
 
 namespace {
 std::string file_name_DIMACS10 = "../../dist/graphs/rgg_n_2_15_s0.graph";
-std::string file_name_DIMACS = "../../../dist/graphs/manual/v1000.gra";
+std::string file_name_DIMACS = "../../dist/graphs/manual/v1000.gra";
 } // Anonymous namespace
 
 Graph loadDefaultSequential() {
