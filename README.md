@@ -56,10 +56,10 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
 make
 ```
-- Alternatively, `cmake -B ./build -DENABLE_TESTS=ON`
+- Alternatively, run:
 ```
-cmake -B ./build -DENABLE_TESTS=ON
-cmake --build ./build --config Release
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
+cmake --build ./build 
 ```
 
 ## Run Instructions
