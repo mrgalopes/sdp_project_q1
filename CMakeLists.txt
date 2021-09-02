@@ -5,11 +5,16 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin/$<CONFIG>)
 
-configure_file(${PROJECT_SOURCE_DIR}/dist/graphs/rgg_n_2_15_s0.graph
-               ${PROJECT_BINARY_DIR}/dist/graphs/rgg_n_2_15_s0.graph
-               COPYONLY)
-
 option(ENABLE_TESTS "Build tests" OFF)
+
+if (ENABLE_TESTS)
+    configure_file(${PROJECT_SOURCE_DIR}/dist/graphs/rgg_n_2_15_s0.graph
+                   ${PROJECT_BINARY_DIR}/dist/graphs/rgg_n_2_15_s0.graph
+                   COPYONLY)
+    configure_file(${PROJECT_SOURCE_DIR}/dist/graphs/manual/v1000.gra
+                   ${PROJECT_BINARY_DIR}/dist/graphs/manual/v1000.gra
+                   COPYONLY)
+endif()
 
 set(CLANG_FORMAT_POSTFIX "-10")
 find_program(CLANG_FORMAT
