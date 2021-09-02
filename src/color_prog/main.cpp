@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
     Graph graph;
     int option_index = 0;
     ColorStrategy selected = ColorStrategy::Basic;
-    FileFormat format;
+    FileFormat format = FileFormat::DIMACS10;
     int n_threads = 4;
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     char* output_file = nullptr;
