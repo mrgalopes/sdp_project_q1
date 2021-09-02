@@ -34,8 +34,8 @@ make
 ```
 - Alternatively, run:
 ```
-cmake -B ./build
-cmake --build ./build --config Release
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release
+cmake --build ./build
 ```
 Use the `-DCMAKE_CXX_COMPILER` and `-DCMAKE_C_COMPILER` options to define the used compiler.
 
