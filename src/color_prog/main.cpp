@@ -42,6 +42,33 @@ std::string UTF16ToUTF8(const std::wstring& input) {
 }
 #endif
 
+bool noAdjacentVertexWithSameColor(Graph& graph) {
+    for (auto& vertex : graph.vertices) {
+        unsigned int color = vertex.getColor();
+        for (auto& edge_ID : vertex.getEdgeList()) {
+            if (edge_ID == vertex.getID())
+                continue;
+            if (color == graph.vertices.at(edge_ID - 1).getColor()) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+#include <set>
+int noUncoloredVertex(Graph& graph) {
+    int num_uncolored = 0;
+    std::set<unsigned int> uncolored_vertices;
+    for (auto& v : graph.vertices) {
+        if (v.getColor() == 0) {
+            num_uncolored++;
+            uncolored_vertices.insert(v.getID());
+        }
+    }
+    return num_uncolored;
+}
+
 static void printHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
@@ -231,6 +258,16 @@ int main(int argc, char** argv) {
     if (output_file) {
         std::cout << "Exporting colors to: " << output_file << std::endl;
         exportColors(output_file, graph);
+    }
+
+    bool noAdjacent = noAdjacentVertexWithSameColor(graph);
+    int uncolored = noUncoloredVertex(graph);
+
+    if (noAdjacent && uncolored == 0){
+        std::cout << "Pass" << std::endl;
+    } else {
+        std::cout << "No adjacent: " << noAdjacent << std::endl;
+        std::cout << "Number of uncolored: " << uncolored << std::endl;
     }
 
     delete coloring_algorithm;
