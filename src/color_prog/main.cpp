@@ -250,9 +250,18 @@ int main(int argc, char** argv) {
         << "Elapsed time (coloring): "
         << std::chrono::duration_cast<std::chrono::microseconds>(time_end - time_middle).count()/float(1000)
         << "[ms]" << std::endl;
+
+    bool noAdjacent = noAdjacentVertexWithSameColor(graph);
+    int uncolored = noUncoloredVertex(graph);
     std::cout << "Number of vertices in file: " << graph.numVertices << std::endl;
     std::cout << "Number of vertices created: " << graph.vertices.size() << std::endl;
     std::cout << "Number of colors: " << maxColor(graph) << std::endl;
+    if (noAdjacent && uncolored == 0){
+        std::cout << "Pass" << std::endl;
+    } else {
+        std::cout << "No adjacent: " << noAdjacent << std::endl;
+        std::cout << "Number of uncolored: " << uncolored << std::endl;
+    }
     std::cout << "\n -- Coloring finished --" << std::endl;
 
     if (output_file) {
@@ -260,15 +269,7 @@ int main(int argc, char** argv) {
         exportColors(output_file, graph);
     }
 
-    bool noAdjacent = noAdjacentVertexWithSameColor(graph);
-    int uncolored = noUncoloredVertex(graph);
 
-    if (noAdjacent && uncolored == 0){
-        std::cout << "Pass" << std::endl;
-    } else {
-        std::cout << "No adjacent: " << noAdjacent << std::endl;
-        std::cout << "Number of uncolored: " << uncolored << std::endl;
-    }
 
     delete coloring_algorithm;
     return 0;

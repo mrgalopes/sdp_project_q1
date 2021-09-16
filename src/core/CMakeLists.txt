@@ -16,7 +16,9 @@ add_library(core STATIC
         coloring_algorithms/LargestDegreeFirstAlgorithm.cpp
         coloring_algorithms/LargestDegreeFirstAlgorithm.h
         io/ColorExporter.cpp
-        io/ColorExporter.h)
+        io/ColorExporter.h
+        Barrier.cpp
+        Barrier.h)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
